@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DiplomTestApp.iml" filepath="$PROJECT_DIR$/DiplomTestApp.iml" />
+      <module fileurl="file://D:/Downloads/brettwooldridge-HikariCP-HikariCP-2.4.4-2-g8b4a6bb/brettwooldridge-HikariCP-8b4a6bb/HikariCP.iml" filepath="D:/Downloads/brettwooldridge-HikariCP-HikariCP-2.4.4-2-g8b4a6bb/brettwooldridge-HikariCP-8b4a6bb/HikariCP.iml" />
+    </modules>
+  </component>
+</project>
