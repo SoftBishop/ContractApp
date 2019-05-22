@@ -17,5 +17,6 @@
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-log4j12:1.7.5" level="project" />
     <orderEntry type="library" name="Maven: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="javafx-swt" level="project" />
+    <orderEntry type="library" name="postgresql-42.2.5" level="application" />
   </component>
 </module>

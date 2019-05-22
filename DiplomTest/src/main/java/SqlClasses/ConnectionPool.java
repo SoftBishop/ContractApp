@@ -1,5 +1,6 @@
-package SqlClasses;;
+package SqlClasses;
 import com.zaxxer.hikari.*;
+import org.slf4j.Logger;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
@@ -22,7 +23,7 @@ public class ConnectionPool {
             properties = new Properties();
 
 
-            properties.load(new FileInputStream("/SqlClasses/database.properties"));
+            properties.load(new FileInputStream("D:\\Diplom\\DiplomTest\\src\\main\\java\\SqlClasses\\database.properties"));
 
             dataSource = new HikariDataSource();
             dataSource.setDriverClassName(properties.getProperty(DB_DRIVER_CLASS));

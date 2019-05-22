@@ -4,14 +4,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import static javafx.application.Application.launch;
+
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
         Parent root = FXMLLoader.load(getClass().getResource("/fxml_auth.fxml"));
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("Authroization");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
