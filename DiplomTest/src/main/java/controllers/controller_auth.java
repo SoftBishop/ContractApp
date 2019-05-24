@@ -26,7 +26,7 @@ public class controller_auth {
     void TestAction(ActionEvent event) {
         try {
             SQLMethods sqlMethod = new SQLMethods();
-            sqlMethod.getUsernameData(login_field.getText(), buttonAuth.getText());
+            sqlMethod.getUsernameData(login_field.getText(), password_field.getText());
             if(sqlMethod.getPrivelege() == 0)
             {
                 System.out.println("Введены неверные данные!");

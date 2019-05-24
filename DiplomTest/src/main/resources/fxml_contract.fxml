@@ -11,11 +11,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-            minWidth="-Infinity" prefHeight="706.0" prefWidth="1014.0" style="-fx-background-color: #0E9400;"
-            xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1014.0" style="-fx-background-color: #0E9400;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract">
     <children>
-        <TableView layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="869.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="138.0">
+        <TableView editable="true" layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="869.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="138.0">
             <columns>
                 <TableColumn prefWidth="127.20001220703125" text="Номер договора" />
                 <TableColumn minWidth="4.0" prefWidth="166.40008544921875" text="Дата создания договора" />

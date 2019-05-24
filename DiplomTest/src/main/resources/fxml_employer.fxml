@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_employer">
+   <children>
+      <TableView layoutY="31.0" prefHeight="302.0" prefWidth="389.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ФИО" />
+          <TableColumn prefWidth="75.0" text="Дата найма" />
+            <TableColumn prefWidth="126.4000244140625" text="Телефонный номер" />
+            <TableColumn prefWidth="75.0" text="Должность" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
