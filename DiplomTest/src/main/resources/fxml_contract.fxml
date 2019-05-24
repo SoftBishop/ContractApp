@@ -11,20 +11,21 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="706.0" prefWidth="1014.0" style="-fx-background-color: #0E9400;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1131.0" style="-fx-background-color: #0E9400;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract">
     <children>
-        <TableView editable="true" layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="869.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="138.0">
+        <TableView editable="true" layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="996.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="135.0">
             <columns>
                 <TableColumn prefWidth="127.20001220703125" text="Номер договора" />
-                <TableColumn minWidth="4.0" prefWidth="166.40008544921875" text="Дата создания договора" />
-                <TableColumn prefWidth="144.800048828125" text="Дата вступления в силу" />
-                <TableColumn prefWidth="121.5999755859375" text="Дата Истечения" />
-                <TableColumn prefWidth="75.0" text="Цена" />
-                <TableColumn prefWidth="75.0" text="Клиент" />
-                <TableColumn prefWidth="75.0" text="Составлен" />
+            <TableColumn prefWidth="99.20001220703125" text="Тип договора" />
+            <TableColumn prefWidth="160.0" text="Дата создания довгора" />
+            <TableColumn prefWidth="123.19998168945312" text="Дата выполнения" />
+            <TableColumn prefWidth="123.20001220703125" text="Дата истеченения" />
+            <TableColumn prefWidth="114.39996337890625" text="Клиент" />
+            <TableColumn prefWidth="103.20001220703125" text="Организация" />
+            <TableColumn prefWidth="78.4000244140625" text="Составлен" />
             </columns>
         </TableView>
-        <MenuBar layoutY="7.0" prefHeight="26.0" prefWidth="1014.0" AnchorPane.topAnchor="0.0">
+        <MenuBar layoutY="7.0" prefHeight="26.0" prefWidth="1088.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Файл">
                     <items>
@@ -66,42 +67,37 @@
                 <Insets />
             </opaqueInsets>
         </MenuBar>
-        <Button layoutX="887.0" layoutY="121.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Смету" textAlignment="CENTER" underline="true">
+        <Button layoutX="1004.0" layoutY="125.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Смету" textAlignment="CENTER" underline="true" AnchorPane.bottomAnchor="530.6" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="125.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font></Button>
-        <Button layoutX="887.0" layoutY="192.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Клиента" textAlignment="CENTER" underline="true" wrapText="true">
+        <Button layoutX="1004.0" layoutY="190.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Клиента" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button layoutX="887.0" layoutY="260.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Генерация Плана" textAlignment="CENTER" underline="true" wrapText="true">
+        <Button layoutX="1004.0" layoutY="253.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Генерация Плана" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button layoutX="887.0" layoutY="316.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Организацию" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true">
+        <Button layoutX="1004.0" layoutY="450.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Организацию" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button layoutX="887.0" layoutY="385.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Просчитать Цену" textAlignment="CENTER" underline="true" wrapText="true">
+        <Button layoutX="1004.0" layoutY="645.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" style="-fx-background-color: #FF7F00;" text="Провести договор" textAlignment="CENTER" wrapText="true" />
+        <Button layoutX="1004.0" layoutY="317.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить помещение" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button layoutX="887.0" layoutY="649.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" style="-fx-background-color: #FF7F00;" text="Провести договор" textAlignment="CENTER" wrapText="true" />
-        <Button layoutX="887.0" layoutY="436.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить помещение" textAlignment="CENTER" underline="true" wrapText="true">
+        <Button layoutX="1003.0" layoutY="521.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Импорт договора" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button layoutX="887.0" layoutY="500.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Импорт договора" textAlignment="CENTER" underline="true" wrapText="true">
-            <font>
-                <Font name="Century Schoolbook" size="12.0" />
-            </font>
-        </Button>
-        <Button layoutX="887.0" layoutY="550.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Экспорт Договора" textAlignment="CENTER" underline="true" wrapText="true">
+        <Button layoutX="1004.0" layoutY="386.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Экспорт Договора" textAlignment="CENTER" underline="true" wrapText="true" AnchorPane.leftAnchor="1004.0" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>

@@ -25,19 +25,19 @@
             <TableColumn prefWidth="138.39990234375" text="Дата выполнения" />
         </columns>
       </TableView>
-      <TextField layoutX="10.0" layoutY="416.0" />
+      <TextField layoutX="10.0" layoutY="416.0" promptText="Наименваоние работ" />
       <Text layoutX="10.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Наименование работ" />
-      <TextField layoutX="10.0" layoutY="461.0" />
+      <TextField layoutX="10.0" layoutY="461.0" promptText="Количество" />
       <Text layoutX="10.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество" wrappingWidth="125.7952880859375" />
       <Text layoutX="173.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип работ" wrappingWidth="148.79999999999995" />
       <Text layoutX="173.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Единицы измерения" wrappingWidth="148.79999999999995" />
       <Text layoutX="336.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер сметы" wrappingWidth="148.79999999999995" />
-      <ComboBox editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" />
-      <ComboBox editable="true" layoutX="172.0" layoutY="416.0" prefWidth="150.0" />
-      <ComboBox editable="true" layoutX="334.0" layoutY="416.0" prefWidth="150.0" />
-      <ComboBox editable="true" layoutX="335.0" layoutY="461.0" prefWidth="150.0" />
+      <ComboBox editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" promptText="Tдиницы измерения" />
+      <ComboBox editable="true" layoutX="172.0" layoutY="416.0" prefWidth="150.0" promptText="Тип работ" />
+      <ComboBox editable="true" layoutX="334.0" layoutY="416.0" prefWidth="150.0" promptText="Номер сметы" />
+      <ComboBox editable="true" layoutX="335.0" layoutY="461.0" prefWidth="150.0" promptText="Работник" />
       <Text layoutX="336.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Работник" />
-      <DatePicker layoutX="497.0" layoutY="447.0" />
+      <DatePicker layoutX="497.0" layoutY="447.0" promptText="Датавыполнения" />
       <Text layoutX="497.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Дата выполения" />
       <Button layoutX="690.0" layoutY="410.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="90.0" text="Добавить" />
       <Button layoutX="789.0" layoutY="427.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="Редактировать" />
