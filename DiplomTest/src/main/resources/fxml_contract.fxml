@@ -13,16 +13,16 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="710.0" prefWidth="1131.0" style="-fx-background-color: #0E9400;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract">
     <children>
-        <TableView editable="true" layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="996.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="135.0">
+        <TableView fx:id="contractTable" editable="true" layoutX="14.0" layoutY="145.0" prefHeight="578.0" prefWidth="996.0" style="-fx-border-color: #FF7F00;" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="135.0">
             <columns>
-                <TableColumn prefWidth="127.20001220703125" text="Номер договора" />
-            <TableColumn prefWidth="99.20001220703125" text="Тип договора" />
-            <TableColumn prefWidth="160.0" text="Дата создания довгора" />
-            <TableColumn prefWidth="123.19998168945312" text="Дата выполнения" />
-            <TableColumn prefWidth="123.20001220703125" text="Дата истеченения" />
-            <TableColumn prefWidth="114.39996337890625" text="Клиент" />
-            <TableColumn prefWidth="103.20001220703125" text="Организация" />
-            <TableColumn prefWidth="78.4000244140625" text="Составлен" />
+                <TableColumn fx:id="numberContractColumnTable" prefWidth="127.20001220703125" text="Номер договора" />
+            <TableColumn fx:id="typeContractColTable" prefWidth="99.20001220703125" text="Тип договора" />
+            <TableColumn fx:id="dateCreationColTable" prefWidth="160.0" text="Дата создания довгора" />
+            <TableColumn fx:id="dateofExecColTable" prefWidth="123.19998168945312" text="Дата выполнения" />
+            <TableColumn fx:id="dateFinishedColTable" prefWidth="123.20001220703125" text="Дата истеченения" />
+            <TableColumn fx:id="clinetColTable" prefWidth="114.39996337890625" text="Клиент" />
+            <TableColumn fx:id="organizationColTable" prefWidth="103.20001220703125" text="Организация" />
+            <TableColumn fx:id="employerColTable" prefWidth="78.4000244140625" text="Составлен" />
             </columns>
         </TableView>
         <MenuBar layoutY="7.0" prefHeight="26.0" prefWidth="1088.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

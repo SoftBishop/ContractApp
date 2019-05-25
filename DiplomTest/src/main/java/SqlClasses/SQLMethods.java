@@ -16,6 +16,7 @@ public class SQLMethods{
     {
         return privilegeID;
     }
+
     public void getUsernameData(String user, String pass) throws SQLException {
         connection = ConnectionPool.getDataSource().getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement("SELECT username,userpassword,privilegesprivilegeid from Users where username = ?");
