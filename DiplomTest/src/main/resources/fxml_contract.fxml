@@ -17,10 +17,10 @@
             <columns>
                 <TableColumn fx:id="numberContractColumnTable" prefWidth="127.20001220703125" text="Номер договора" />
             <TableColumn fx:id="typeContractColTable" prefWidth="99.20001220703125" text="Тип договора" />
-            <TableColumn fx:id="dateCreationColTable" prefWidth="160.0" text="Дата создания довгора" />
-            <TableColumn fx:id="dateofExecColTable" prefWidth="123.19998168945312" text="Дата выполнения" />
+            <TableColumn fx:id="dateCreationColTable" prefWidth="160.0" text="Дата создания договора" />
+            <TableColumn fx:id="dateExecColTable" prefWidth="123.19998168945312" text="Дата выполнения" />
             <TableColumn fx:id="dateFinishedColTable" prefWidth="123.20001220703125" text="Дата истеченения" />
-            <TableColumn fx:id="clinetColTable" prefWidth="114.39996337890625" text="Клиент" />
+            <TableColumn fx:id="clientColTable" prefWidth="114.39996337890625" text="Клиент" />
             <TableColumn fx:id="organizationColTable" prefWidth="103.20001220703125" text="Организация" />
             <TableColumn fx:id="employerColTable" prefWidth="78.4000244140625" text="Составлен" />
             </columns>
