@@ -3,13 +3,18 @@ package controllers;
 import SqlClasses.ConnectionPool;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modeltables.tableview_contract;
-
 
 import java.net.URL;
 import java.sql.Connection;
@@ -18,8 +23,6 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class controller_contract implements Initializable {
-
-
 
     @FXML
     private TableView<tableview_contract> contractTable;
@@ -48,13 +51,87 @@ public class controller_contract implements Initializable {
     @FXML
     private TableColumn<tableview_contract, String> employerColTable;
 
+    @FXML
+    private Button estimateButton;
+
+    @FXML
+    private Button ClientFormButton;
+
+    @FXML
+    private Button generatePlanButton;
+
+    @FXML
+    private Button organizationFormButton;
+
+    @FXML
+    private Button CreateContractButton;
+
+    @FXML
+    private Button placementFormButton;
+
+    @FXML
+    private Button importFormButton;
+
+    @FXML
+    private Button exportContractButton;
+
+    @FXML
+    void GeneratePlanFormButton(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenClientForm(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenEstimate(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenExportFormContract(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenFormCreateContract(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_contract_editor.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+
+    }
+
+    @FXML
+    void OpenImportContractForm(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenOrganizationContract(ActionEvent event) {
+
+    }
+
+    @FXML
+    void OpenPlacementForm(ActionEvent event) {
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillContractTableView();
     }
-
     private ObservableList<tableview_contract> olist = FXCollections.observableArrayList();
     private void FillContractTableView() {
+
         try
         {
             Connection connection;
@@ -73,17 +150,17 @@ public class controller_contract implements Initializable {
                     "join Employers on  contracts.Employers = Employers.EmployerID");
 
             ResultSet rs = preparedStatement.executeQuery();
-                while(rs.next())
-                {
-                    olist.add(new tableview_contract(rs.getString("dogovorid"),
-                                                    rs.getString("NameTypeContract"),
-                                                    rs.getString("DateOfCreationContract"),
-                                                    rs.getString("DateExecution"),
-                                                    rs.getString("DateExpire"),
-                                                    rs.getString("clientfio"),
-                                                    rs.getString("NameOrganization"),
-                                                    rs.getString("employerfio")));
-                }
+            while(rs.next())
+            {
+                olist.add(new tableview_contract(rs.getString("dogovorid"),
+                        rs.getString("NameTypeContract"),
+                        rs.getString("DateOfCreationContract"),
+                        rs.getString("DateExecution"),
+                        rs.getString("DateExpire"),
+                        rs.getString("clientfio"),
+                        rs.getString("NameOrganization"),
+                        rs.getString("employerfio")));
+            }
         }
         catch (Exception ex)
         {
@@ -100,4 +177,6 @@ public class controller_contract implements Initializable {
 
         contractTable.setItems(olist);
     }
+
+
 }
