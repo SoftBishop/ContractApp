@@ -87,7 +87,17 @@ public class controller_contract implements Initializable {
 
     @FXML
     void OpenEstimate(ActionEvent event) {
-
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_estimate.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
@@ -128,6 +138,7 @@ public class controller_contract implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillContractTableView();
+
     }
     private ObservableList<tableview_contract> olist = FXCollections.observableArrayList();
     private void FillContractTableView() {

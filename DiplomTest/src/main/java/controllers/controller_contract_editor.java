@@ -68,29 +68,24 @@ public class controller_contract_editor implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FillComboBox(sqlQueryFIOAllEmp,clientComboBox, fioEmpCol);
-        FillComboBox(sqlQueryNameTypeContracts,typeContractComboBox, nameTypeContractCol );
+        FillEmployerCombobox();
+
     }
 
     private ObservableList olist = FXCollections.observableArrayList();
 
-    private String sqlQueryFIOAllEmp = "SELECT fio FROM employers"; String fioEmpCol = "fio";
-    private String sqlQueryNameTypeContracts = "SELECT nametypecontract FROM typecontracts";
-    String nameTypeContractCol = "nametypecontract";
-
-
-    private void FillComboBox(String sqlQuery, ComboBox comboBox, String colName)
+    private void FillEmployerCombobox()
     {
 
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT fio FROM employers");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
             {
-            olist.add(rs.getString(colName));
+            olist.add(rs.getString("fio"));
             }
             connection.close();
         }
@@ -99,7 +94,7 @@ public class controller_contract_editor implements Initializable {
             System.out.println(ex);
 
         }
-        comboBox.setItems(olist);
-        olist.removeAll();
+        clientComboBox.setItems(olist);
+
     }
 }

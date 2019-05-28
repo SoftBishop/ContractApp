@@ -32,7 +32,7 @@
       <Text layoutX="173.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип работ" wrappingWidth="148.79999999999995" />
       <Text layoutX="173.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Единицы измерения" wrappingWidth="148.79999999999995" />
       <Text layoutX="336.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер сметы" wrappingWidth="148.79999999999995" />
-      <ComboBox editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" promptText="Tдиницы измерения" />
+      <ComboBox editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" promptText="Единицы измерения" />
       <ComboBox editable="true" layoutX="172.0" layoutY="416.0" prefWidth="150.0" promptText="Тип работ" />
       <ComboBox editable="true" layoutX="334.0" layoutY="416.0" prefWidth="150.0" promptText="Номер сметы" />
       <ComboBox editable="true" layoutX="335.0" layoutY="461.0" prefWidth="150.0" promptText="Работник" />
