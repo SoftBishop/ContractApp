@@ -5,61 +5,54 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="511.0" prefWidth="905.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_scopeofwork_estimate">
+<AnchorPane prefHeight="511.0" prefWidth="1102.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_scopeofwork_estimate">
    <children>
-      <TableView layoutX="1.0" layoutY="26.0" prefHeight="362.0" prefWidth="906.0">
+      <TableView fx:id="scopeOfWorkTableView" layoutX="1.0" layoutY="26.0" prefHeight="363.0" prefWidth="1102.0" AnchorPane.bottomAnchor="123.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="26.0">
         <columns>
-          <TableColumn prefWidth="160.00000286102295" text="Наименование работ" />
-          <TableColumn minWidth="0.7999343872070312" prefWidth="135.99998474121094" text="Количество" />
-            <TableColumn minWidth="0.0" prefWidth="95.20001220703125" text="Тип работ" />
-            <TableColumn prefWidth="150.4000244140625" text="Единицы измерений" />
-            <TableColumn prefWidth="111.20001220703125" text="Номер сметы" />
-            <TableColumn prefWidth="88.79998779296875" text="Работник" />
-            <TableColumn prefWidth="138.39990234375" text="Дата выполнения" />
+          <TableColumn fx:id="nameWorkCol" prefWidth="223.20001220703125" text="Наименование работ" />
+          <TableColumn fx:id="quantityCol" minWidth="0.7999343872070312" prefWidth="74.4000244140625" text="Количество" />
+            <TableColumn fx:id="nameTypeWorkCol" minWidth="0.0" prefWidth="117.5999755859375" text="Тип работ" />
+            <TableColumn fx:id="measureUnitsCol" prefWidth="130.4000244140625" text="Единицы измерений" />
+            <TableColumn fx:id="estimateIDCol" prefWidth="108.0" text="Номер сметы" />
+            <TableColumn fx:id="employerFIOCol" prefWidth="129.5999755859375" text="Работник" />
+            <TableColumn fx:id="dateExecCol" prefWidth="112.79998779296875" text="Дата выполнения" />
+            <TableColumn fx:id="priceOfWorkCol" prefWidth="72.800048828125" text="Цена " />
+            <TableColumn fx:id="placmentIdCol" prefWidth="84.0" text="Помещение" />
         </columns>
       </TableView>
-      <TextField layoutX="10.0" layoutY="416.0" promptText="Наименваоние работ" />
-      <Text layoutX="10.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Наименование работ" />
-      <TextField layoutX="10.0" layoutY="461.0" promptText="Количество" />
-      <Text layoutX="10.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество" wrappingWidth="125.7952880859375" />
-      <Text layoutX="173.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип работ" wrappingWidth="148.79999999999995" />
-      <Text layoutX="173.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Единицы измерения" wrappingWidth="148.79999999999995" />
-      <Text layoutX="336.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер сметы" wrappingWidth="148.79999999999995" />
-      <ComboBox editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" promptText="Единицы измерения" />
-      <ComboBox editable="true" layoutX="172.0" layoutY="416.0" prefWidth="150.0" promptText="Тип работ" />
-      <ComboBox editable="true" layoutX="334.0" layoutY="416.0" prefWidth="150.0" promptText="Номер сметы" />
-      <ComboBox editable="true" layoutX="335.0" layoutY="461.0" prefWidth="150.0" promptText="Работник" />
-      <Text layoutX="336.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Работник" />
-      <DatePicker layoutX="497.0" layoutY="447.0" promptText="Датавыполнения" />
-      <Text layoutX="497.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Дата выполения" />
-      <Button layoutX="690.0" layoutY="410.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="90.0" text="Добавить" />
-      <Button layoutX="789.0" layoutY="427.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="98.0" text="Редактировать" />
-      <Button layoutX="690.0" layoutY="455.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="90.0" text="Удалить" />
-      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="906.0">
+      <TextField fx:id="nameWorkTextField" layoutX="10.0" layoutY="416.0" promptText="Наименование работ" AnchorPane.bottomAnchor="69.4" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="943.2" AnchorPane.topAnchor="416.0" />
+      <Text layoutX="10.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Наименование работ" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="973.7578125" AnchorPane.topAnchor="399.0" />
+      <TextField fx:id="quantityTextField" layoutX="10.0" layoutY="461.0" promptText="Количество" AnchorPane.bottomAnchor="24.4" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="943.2" AnchorPane.topAnchor="461.0" />
+      <Text layoutX="10.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Количество" wrappingWidth="125.7952880859375" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="966.2047119140625" AnchorPane.topAnchor="443.0" />
+      <Text layoutX="173.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тип работ" wrappingWidth="148.79999999999995" AnchorPane.bottomAnchor="95.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="780.2" AnchorPane.topAnchor="399.0" />
+      <Text layoutX="173.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Единицы измерения" wrappingWidth="148.79999999999995" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="173.0" AnchorPane.rightAnchor="780.2" AnchorPane.topAnchor="444.0" />
+      <Text layoutX="336.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Номер сметы" wrappingWidth="148.79999999999995" AnchorPane.bottomAnchor="97.0" AnchorPane.leftAnchor="336.0" AnchorPane.rightAnchor="617.2" AnchorPane.topAnchor="398.0" />
+      <ComboBox fx:id="measureUnitsComboBox" editable="true" layoutX="172.0" layoutY="461.0" prefWidth="150.0" promptText="Единицы измерения" AnchorPane.bottomAnchor="24.4" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="779.6" AnchorPane.topAnchor="461.0" />
+      <ComboBox fx:id="typeWorkCombobBox" editable="true" layoutX="172.0" layoutY="416.0" prefWidth="150.0" promptText="Тип работ" AnchorPane.bottomAnchor="69.4" AnchorPane.leftAnchor="172.0" AnchorPane.rightAnchor="779.6" AnchorPane.topAnchor="416.0" />
+      <ComboBox fx:id="estimateIDComboBox" editable="true" layoutX="335.0" layoutY="415.0" prefWidth="150.0" promptText="Номер сметы" AnchorPane.bottomAnchor="71.4" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="616.6" AnchorPane.topAnchor="415.0" />
+      <ComboBox fx:id="employerComboBox" editable="true" layoutX="335.0" layoutY="461.0" prefWidth="150.0" promptText="Работник" AnchorPane.bottomAnchor="25.4" AnchorPane.leftAnchor="335.0" AnchorPane.rightAnchor="616.6" AnchorPane.topAnchor="461.0" />
+      <Text layoutX="336.0" layoutY="456.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Работник" AnchorPane.bottomAnchor="52.0" AnchorPane.leftAnchor="336.0" AnchorPane.rightAnchor="714.408203125" AnchorPane.topAnchor="443.0" />
+      <DatePicker fx:id="dateExecDatePicker" layoutX="495.0" layoutY="415.0" promptText="Датавыполнения" AnchorPane.bottomAnchor="71.4" AnchorPane.leftAnchor="495.0" AnchorPane.rightAnchor="432.6" AnchorPane.topAnchor="415.0" />
+      <Text layoutX="495.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Дата выполения" />
+      <Button fx:id="addWorkButton" layoutX="876.0" layoutY="410.0" mnemonicParsing="false" onAction="#AddWork" prefHeight="37.0" prefWidth="90.0" text="Добавить" AnchorPane.topAnchor="455.0" />
+      <Button fx:id="editWorkButton" layoutX="976.0" layoutY="428.0" mnemonicParsing="false" onAction="#DeleteWork" prefHeight="46.0" prefWidth="98.0" text="Редактировать" AnchorPane.bottomAnchor="36.6" AnchorPane.rightAnchor="27.599999999999994" AnchorPane.topAnchor="428.0" />
+      <Button fx:id="deleteWorkButton" layoutX="876.0" layoutY="408.0" mnemonicParsing="false" onAction="#DeleteWork" prefHeight="37.0" prefWidth="90.0" text="Удалить" AnchorPane.topAnchor="408.0" />
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1102.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
         <menus>
-          <Menu mnemonicParsing="false" text="Тип работ">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Работники">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Единицы измерения">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+          <Menu fx:id="typeWorksMenuButton" mnemonicParsing="false" text="Тип работ" />
+          <Menu fx:id="employerMenuButton" mnemonicParsing="false" text="Работники" />
+          <Menu fx:id="measureUnitsMenuButoon" mnemonicParsing="false" text="Единицы измерения" />
         </menus>
       </MenuBar>
+      <Text layoutX="496.0" layoutY="459.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Цена" />
+      <ComboBox fx:id="placementComboBox" editable="true" layoutX="683.0" layoutY="442.0" prefHeight="26.0" prefWidth="174.0" promptText="Помещение" AnchorPane.bottomAnchor="43.6" AnchorPane.leftAnchor="683.0" AnchorPane.rightAnchor="244.6" AnchorPane.topAnchor="442.0" />
+      <Text layoutX="683.0" layoutY="440.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Помещение" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="683.0" AnchorPane.rightAnchor="352.373046875" AnchorPane.topAnchor="427.0" />
+      <TextField fx:id="priceTextField" layoutX="495.0" layoutY="461.0" prefHeight="26.0" prefWidth="174.0" promptText="Количество" AnchorPane.bottomAnchor="24.6" AnchorPane.leftAnchor="495.0" AnchorPane.rightAnchor="432.6" AnchorPane.topAnchor="461.0" />
    </children>
 </AnchorPane>
