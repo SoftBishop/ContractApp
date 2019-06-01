@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="DiplomTestApp" target="7" />
+      <module name="DiplomTestApp" target="11" />
       <module name="HikariCP" target="1.7" />
     </bytecodeTargetLevel>
   </component>

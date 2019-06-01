@@ -9,12 +9,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import modeltables.tableview_contract;
 import modeltables.tableview_estimate;
 
 import java.net.URL;
@@ -23,7 +21,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class controller_estimate implements Initializable {
+public class Controller_Estimate implements Initializable {
+
 
     @FXML
     private TableView<tableview_estimate> estimateTableView;
@@ -59,11 +58,6 @@ public class controller_estimate implements Initializable {
 
     @FXML
     void LookAllScopeOfWork(ActionEvent event) {
-
-    }
-
-    @FXML
-    void OpenScopeOfWork(ActionEvent event) {
         try
         {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_scopeofwork_estimate.fxml"));
@@ -71,16 +65,25 @@ public class controller_estimate implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+            controllerScopeofworkEstimate = fxmlLoader.getController();
+            controllerScopeofworkEstimate.SetControllerEstimate(this);
+            controllerScopeofworkEstimate.FillEstimateTable();
         }catch (Exception ex)
         {
             System.out.println(ex);
         }
+    }
+
+    @FXML
+    void OpenScopeOfWork(ActionEvent event) {
+
 
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
     FillEstimateTable();
+    DoubleClick();
     }
 
     private ObservableList<tableview_estimate> olist = FXCollections.observableArrayList();
@@ -123,4 +126,37 @@ public class controller_estimate implements Initializable {
 
         estimateTableView.setItems(olist);
     }
+
+    private void DoubleClick()
+    {
+        estimateTableView.setRowFactory( tv -> {
+            TableRow<tableview_estimate> row = new TableRow<>();
+
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    tableview_estimate rowData = row.getItem();
+                    try {
+                        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_scopeofwork_estimate.fxml"));
+                        Parent root = (Parent) fxmlLoader.load();
+                        Stage stage = new Stage();
+                        stage.setScene(new Scene(root));
+                        stage.show();
+                        controllerScopeofworkEstimate = fxmlLoader.getController();
+                        controllerScopeofworkEstimate.SetControllerEstimate(this);
+                        controllerScopeofworkEstimate.SetEstimateId(Integer.parseInt(rowData.getEstimateID()));
+                        controllerScopeofworkEstimate.FillEstimateTable();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                }
+            });
+            return row ;
+        });
+    }
+
+    Controller_Scopeofwork_Estimate controllerScopeofworkEstimate;
+
+
 }

@@ -2,11 +2,13 @@ package modeltables;
 
 public class tableview_contract {
     String contractID, contractType,contractDateOfCreation,
-            contractDateExec, contractDateFinished ,nameClient, nameOrganization, nameEmployer;
+            contractDateExec, contractDateFinished ,nameClient, nameOrganization,
+            nameEmployer, placementID, contractPrice;
 
     public tableview_contract(String contractID, String contractType, String contractDateOfCreation,
-                              String contractDateExec, String contractDateFinished, String nameClient,
-                              String nameOrganization, String nameEmployer) {
+                              String contractDateExec, String contractDateFinished,
+                              String nameClient, String nameOrganization,
+                              String nameEmployer, String placementID, String contractPrice) {
         this.contractID = contractID;
         this.contractType = contractType;
         this.contractDateOfCreation = contractDateOfCreation;
@@ -15,6 +17,8 @@ public class tableview_contract {
         this.nameClient = nameClient;
         this.nameOrganization = nameOrganization;
         this.nameEmployer = nameEmployer;
+        this.placementID = placementID;
+        this.contractPrice = contractPrice;
     }
 
     public String getContractID() {
@@ -79,5 +83,21 @@ public class tableview_contract {
 
     public void setNameEmployer(String nameEmployer) {
         this.nameEmployer = nameEmployer;
+    }
+
+    public String getPlacementID() {
+        return placementID;
+    }
+
+    public void setPlacementID(String placementID) {
+        this.placementID = placementID;
+    }
+
+    public String getContractPrice() {
+        return contractPrice;
+    }
+
+    public void setContractPrice(String contractPrice) {
+        this.contractPrice = contractPrice;
     }
 }

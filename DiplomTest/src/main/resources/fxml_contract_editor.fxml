@@ -4,15 +4,16 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="409.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.controller_contract_editor">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="403.0" prefWidth="606.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Contract_Editor">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
       <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
@@ -26,6 +27,8 @@
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="25.0" prefHeight="40.0" valignment="CENTER" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
       <TextArea fx:id="contractTextField" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" />
@@ -40,18 +43,21 @@
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Организация" GridPane.rowIndex="6" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Составлен" GridPane.rowIndex="7" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Тип договора" GridPane.rowIndex="1" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Смета" GridPane.rowIndex="8" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Помещение" GridPane.rowIndex="9" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Номер помещения" GridPane.rowIndex="8" />
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Цена" GridPane.rowIndex="9" />
       <ComboBox fx:id="typeContractComboBox" editable="true" prefHeight="41.0" prefWidth="210.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ComboBox fx:id="clientComboBox" editable="true" prefHeight="41.0" prefWidth="233.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
       <ComboBox fx:id="organizationComboBox" editable="true" prefHeight="40.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <ComboBox fx:id="employerComboBox" editable="true" prefHeight="40.0" prefWidth="235.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-      <ComboBox fx:id="estimateCombobox" editable="true" prefHeight="40.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-      <ComboBox fx:id="placemenCombobox" editable="true" prefHeight="40.0" prefWidth="266.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-      <Button fx:id="clientFormButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" text="Клиенты" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <Button fx:id="organizationFormButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" text="Организации" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <Button fx:id="employersFormButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" text="Сотрудники" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-      <Button fx:id="estimateFormButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" text="Сметы" GridPane.columnIndex="2" GridPane.rowIndex="8" />
-      <Button fx:id="PlacementFormButton" mnemonicParsing="false" prefHeight="33.0" prefWidth="117.0" text="Помещения" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+      <ComboBox fx:id="placementCombobox" editable="true" prefHeight="40.0" prefWidth="246.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+      <Button fx:id="clientFormButton" mnemonicParsing="false" onAction="#OpenClientForm" prefHeight="30.0" prefWidth="120.0" text="Клиенты" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <Button fx:id="organizationFormButton" mnemonicParsing="false" onAction="#OpenOrganizationForm" prefHeight="30.0" prefWidth="120.0" text="Организации" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <Button fx:id="employersFormButton" mnemonicParsing="false" onAction="#OpenEmployersForm" prefHeight="30.0" prefWidth="120.0" text="Сотрудники" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+      <Button fx:id="placementFormButton" mnemonicParsing="false" onAction="#OpenPlacementForm" prefHeight="30.0" prefWidth="120.0" text="Помещения" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+      <TextField fx:id="priceTextField" prefHeight="40.0" prefWidth="202.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+      <Button fx:id="deleteContractButton" mnemonicParsing="false" onAction="#DeleteContract" prefHeight="30.0" prefWidth="120.0" text="Удалить" GridPane.rowIndex="10" />
+      <Button fx:id="EditContractButton" mnemonicParsing="false" onAction="#EditContract" prefHeight="30.0" prefWidth="120.0" text="Редактировать" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+      <Button fx:id="AddContractButton" mnemonicParsing="false" onAction="#AddContract" prefHeight="30.0" prefWidth="120.0" text="Добавить" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+      <Button fx:id="estimateOpenButton" mnemonicParsing="false" onAction="#OpenEstimates" prefHeight="25.0" prefWidth="120.0" text="Сметы" GridPane.columnIndex="2" GridPane.rowIndex="11" />
    </children>
 </GridPane>

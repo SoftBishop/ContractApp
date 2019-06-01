@@ -22,7 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
-public class controller_scopeofwork_estimate implements Initializable {
+public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
     private TableView<tableview_scopeofwork> scopeOfWorkTableView;
@@ -110,24 +110,37 @@ public class controller_scopeofwork_estimate implements Initializable {
     }
 
     private ObservableList<tableview_scopeofwork> olist = FXCollections.observableArrayList();
-    private void FillEstimateTable()
+    public void FillEstimateTable()
     {
+        String query ="SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
+                "typeworks.typeworkname, measureunits.namemeasureunit AS MEASURE, estimates.estimateid, employers.fio AS EMPFIO,\n" +
+                "scopeofworkestimates.dateexecution AS DATEEXECUTION ,\n" +
+                "scopeofworkestimates.price AS price, placement.placementid AS placementid\n" +
+                "FROM scopeofworkestimates \n" +
+                "JOIN typeworks ON typeworks.typeworkid = scopeofworkestimates.typeworks\n" +
+                "JOIN measureunits ON scopeofworkestimates.measureunits = measureunits.mesureunitid\n" +
+                "JOIN estimates ON scopeofworkestimates.estimates = estimates.estimateid  \n" +
+                "JOIN employers ON employers.employerid = scopeofworkestimates.employers\n" +
+                "JOIN placement ON placement.placementid = scopeofworkestimates.placement\n" +
+                " ";
+
+        String condition = "where estimateid = ?";
+
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
-                    "typeworks.typeworkname, measureunits.namemeasureunit AS MEASURE, estimates.estimateid, " +
-                    "employers.fio AS EMPFIO,\n" +
-                    "scopeofworkestimates.dateexecution AS DATEEXECUTION ,\n" +
-                    "scopeofworkestimates.price AS price, placement.placementid AS placementid\n" +
-                    "FROM scopeofworkestimates \n" +
-                    "JOIN typeworks ON typeworks.typeworkid = scopeofworkestimates.typeworks\n" +
-                    "JOIN measureunits ON scopeofworkestimates.measureunits = measureunits.mesureunitid\n" +
-                    "JOIN estimates ON scopeofworkestimates.estimates = estimates.estimateid\n" +
-                    "JOIN employers ON employers.employerid = scopeofworkestimates.employers\n" +
-                    "JOIN placement ON placement.placementid = scopeofworkestimates.placementplacementid");
+            PreparedStatement preparedStatement;
+            if(estimateId ==0)
+            {
+                preparedStatement = connection.prepareStatement(query);
+
+            }
+            else
+            {
+                preparedStatement = connection.prepareStatement(query+condition);
+                preparedStatement.setInt(1,estimateId);
+            }
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
@@ -144,6 +157,7 @@ public class controller_scopeofwork_estimate implements Initializable {
                         ));
             }
             rs.close();
+            estimateId =0;
         }
         catch (Exception ex)
         {
@@ -165,6 +179,19 @@ public class controller_scopeofwork_estimate implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        FillEstimateTable();
+        //FillEstimateTable();
+    }
+
+    private Controller_Estimate controller_estimate;
+    public void SetControllerEstimate(Controller_Estimate controller_estimate)
+    {
+        this.controller_estimate = controller_estimate;
+    }
+
+    private int estimateId;
+
+    public void SetEstimateId(int estimateId)
+    {
+        this.estimateId = estimateId;
     }
 }

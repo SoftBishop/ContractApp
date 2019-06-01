@@ -12,7 +12,7 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml_auth.fxml"));
-        primaryStage.setTitle("Authroization");
+        primaryStage.setTitle("auth");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
 
