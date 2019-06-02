@@ -1,9 +1,9 @@
 package modeltables;
 
-public class tableview_scopeofwork {
+public class Tableview_Scopeofwork {
     String nameWork,quantity, nameTypeWork, measureUnit, estimateId,employerFIO,dateExec,price,placementId;
 
-    public tableview_scopeofwork(String nameWork, String quantity, String nameTypeWork, String measureUnit,
+    public Tableview_Scopeofwork(String nameWork, String quantity, String nameTypeWork, String measureUnit,
                                  String estimateId, String employerFIO, String dateExec,
                                  String price, String placementId) {
         this.nameWork = nameWork;

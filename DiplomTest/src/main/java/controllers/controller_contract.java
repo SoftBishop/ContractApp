@@ -15,7 +15,7 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import modeltables.tableview_contract;
+import modeltables.Tableview_Contract;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -24,44 +24,49 @@ import java.sql.ResultSet;
 import java.util.ResourceBundle;
 
 public class Controller_Contract implements Initializable {
+
     @FXML
     private Controller_Auth controller_auth;
+
+    public void setController_auth(Controller_Auth controller_auth) {
+        this.controller_auth = controller_auth;
+    }
 
     @FXML
     private Controller_Contract_Editor controller_contract_editor;
 
     @FXML
-    private TableView<tableview_contract> contractTable;
+    private TableView<Tableview_Contract> contractTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> numberContractColumnTable;
+    private TableColumn<Tableview_Contract, String> numberContractColumnTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> typeContractColTable;
+    private TableColumn<Tableview_Contract, String> typeContractColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> dateCreationColTable;
+    private TableColumn<Tableview_Contract, String> dateCreationColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> dateExecColTable;
+    private TableColumn<Tableview_Contract, String> dateExecColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> dateFinishedColTable;
+    private TableColumn<Tableview_Contract, String> dateFinishedColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> clientColTable;
+    private TableColumn<Tableview_Contract, String> clientColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> organizationColTable;
+    private TableColumn<Tableview_Contract, String> organizationColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> employerColTable;
+    private TableColumn<Tableview_Contract, String> employerColTable;
 
     @FXML
-    private TableColumn<tableview_contract, String> placementIDCol;
+    private TableColumn<Tableview_Contract, String> placementIDCol;
 
     @FXML
-    private TableColumn<tableview_contract, String> priceContractCol;
+    private TableColumn<Tableview_Contract, String> priceContractCol;
 
     @FXML
     private Button estimateButton;
@@ -201,7 +206,7 @@ public class Controller_Contract implements Initializable {
         DoubleClick();
 
     }
-    private ObservableList<tableview_contract> olist = FXCollections.observableArrayList();
+    private ObservableList<Tableview_Contract> olist = FXCollections.observableArrayList();
     private void FillContractTableView() {
 
         try
@@ -227,8 +232,8 @@ public class Controller_Contract implements Initializable {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
             {
-                olist.add(new tableview_contract(rs.getString("NUMCONTRACTID"),
-                        rs.getString("DATECREATECONTRACT"),
+                olist.add(new Tableview_Contract(rs.getString("NUMCONTRACTID"),
+                        rs.getString("NAMETYPECONTRACT"),
                         rs.getString("DATECREATECONTRACT"),
                         rs.getString("DATEEXECUITONCONTRACT"),
                         rs.getString("DATEEXPIRECONTRACT"),
@@ -243,34 +248,28 @@ public class Controller_Contract implements Initializable {
         {
             System.out.println(ex);
         }
-        numberContractColumnTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractID"));
-        typeContractColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractType"));
-        dateCreationColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractDateOfCreation"));
-        dateExecColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractDateExec"));
-        dateFinishedColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractDateFinished"));
-        clientColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("nameClient"));
-        organizationColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("nameOrganization"));
-        employerColTable.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("nameEmployer"));
-        placementIDCol.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("placementID"));
-        priceContractCol.setCellValueFactory(new PropertyValueFactory<tableview_contract,String>("contractPrice"));
+        numberContractColumnTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractID"));
+        typeContractColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractType"));
+        dateCreationColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractDateOfCreation"));
+        dateExecColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractDateExec"));
+        dateFinishedColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractDateFinished"));
+        clientColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("nameClient"));
+        organizationColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("nameOrganization"));
+        employerColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("nameEmployer"));
+        placementIDCol.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("placementID"));
+        priceContractCol.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractPrice"));
 
         contractTable.setItems(olist);
-    }
 
-
-
-
-    public void setController_auth(Controller_Auth controller_auth) {
-         this.controller_auth = controller_auth;
     }
 
     private void DoubleClick()
     {
         contractTable.setRowFactory( tv -> {
-            TableRow<tableview_contract> row = new TableRow<>();
+            TableRow<Tableview_Contract> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    tableview_contract rowData = row.getItem();
+                    Tableview_Contract rowData = row.getItem();
 
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_contract_editor.fxml"));

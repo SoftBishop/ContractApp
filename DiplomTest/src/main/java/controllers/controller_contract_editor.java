@@ -5,12 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -25,6 +29,11 @@ public class Controller_Contract_Editor implements Initializable {
 
     @FXML
     private Controller_Contract controller_contract;
+
+    @FXML
+    public void setController_contract(Controller_Contract controller_contract) {
+        this.controller_contract = controller_contract;
+    }
 
     @FXML
     private TextArea contractTextField;
@@ -172,33 +181,88 @@ public class Controller_Contract_Editor implements Initializable {
 
     @FXML
     void OpenClientForm(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_client.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void OpenEmployersForm(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_employer.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
 
     }
 
     @FXML
     void OpenEstimates(ActionEvent event) {
-
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_estimate.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void OpenOrganizationForm(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_oraganization.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void OpenPlacementForm(ActionEvent event) {
-
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_placement.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
-    private ObservableList olist = FXCollections.observableArrayList();
+    private ObservableList employersList = FXCollections.observableArrayList();
+    private ObservableList typesList = FXCollections.observableArrayList();
+    private ObservableList organizationsList = FXCollections.observableArrayList();
+    private ObservableList placementList = FXCollections.observableArrayList();
+    private ObservableList clientList = FXCollections.observableArrayList();
 
     private void FillEmployerCombobox()
     {
-
+        employersList.clear();
         try
         {
             Connection connection;
@@ -207,7 +271,7 @@ public class Controller_Contract_Editor implements Initializable {
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
             {
-                olist.add(rs.getString("fio"));
+                employersList.add(rs.getString("fio"));
             }
             connection.close();
         }
@@ -216,16 +280,110 @@ public class Controller_Contract_Editor implements Initializable {
             System.out.println(ex);
 
         }
-        clientComboBox.setItems(olist);
+        employerComboBox.setItems(employersList);
     }
-    @FXML
-    public void setController_contract(Controller_Contract controller_contract) {
-        this.controller_contract = controller_contract;
+    private void FillOrganizationComboBox()
+    {
+        organizationsList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT nameorganization FROM ORGANIZATIONS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                organizationsList.add(rs.getString("nameorganization"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        organizationComboBox.setItems(organizationsList);
     }
+
+    private void FillTypesComboBox()
+    {
+        typesList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT nametypecontract FROM TYPECONTRACTS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                typesList.add(rs.getString("nametypecontract"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        typeContractComboBox.setItems(typesList);
+    }
+
+    private void FillPlacementComboBox()
+    {
+        placementList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT placementid FROM placement");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                placementList.add(rs.getString("placementid"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        placementCombobox.setItems(placementList);
+    }
+
+    private void FillClientComboBox()
+    {
+        clientList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT fio FROM clients");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                clientList.add(rs.getString("fio"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        clientComboBox.setItems(clientList);
+    }
+
+
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillEmployerCombobox();
+        FillTypesComboBox();
+        FillOrganizationComboBox();
+        FillPlacementComboBox();
+        FillClientComboBox();
     }
 }

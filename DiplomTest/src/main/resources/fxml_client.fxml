@@ -9,24 +9,23 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controlller_Client">
+<AnchorPane prefHeight="497.0" prefWidth="401.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controlller_Client">
    <children>
       <Text layoutX="14.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Клиенты">
          <font>
             <Font size="26.0" />
          </font>
       </Text>
-      <TableView layoutX="14.0" layoutY="52.0" prefHeight="296.0" prefWidth="367.0">
+      <TableView fx:id="clientTableView" layoutX="-1.0" layoutY="52.0" prefHeight="296.0" prefWidth="402.0">
         <columns>
-          <TableColumn fx:id="fioCol" prefWidth="153.5999755859375" text="ФИО" />
-          <TableColumn fx:id="nameOrgCol" prefWidth="188.79998779296875" text="Наименование организации" />
+          <TableColumn fx:id="fioCol" prefWidth="211.19995725154877" text="ФИО" />
+          <TableColumn fx:id="nameOrgCol" prefWidth="186.4000244140625" text="Наименование организации" />
         </columns>
       </TableView>
-      <TextField fx:id="fioTextField" layoutX="389.0" layoutY="89.0" prefHeight="26.0" prefWidth="194.0" promptText="ФИО" />
-      <ComboBox fx:id="nameOrgComboBox" editable="true" layoutX="389.0" layoutY="128.0" prefHeight="26.0" prefWidth="194.0" promptText="Наименование организации" />
-      <Button fx:id="deleteClientButton" layoutX="429.0" layoutY="179.0" mnemonicParsing="false" onAction="#DeleteClient" prefHeight="42.0" prefWidth="102.0" text="Удалить" />
-      <Button fx:id="editClientButton" layoutX="429.0" layoutY="235.0" mnemonicParsing="false" onAction="#EditClient" prefHeight="42.0" prefWidth="102.0" text="Редактировать" />
-      <Button fx:id="addClientButton" layoutX="428.0" layoutY="296.0" mnemonicParsing="false" onAction="#AddClient" prefHeight="42.0" prefWidth="102.0" text="Добавить" />
+      <TextField fx:id="fioTextField" layoutX="100.0" layoutY="355.0" prefHeight="35.0" prefWidth="210.0" promptText="ФИО" />
+      <ComboBox fx:id="nameOrgComboBox" editable="true" layoutX="100.0" layoutY="400.0" prefHeight="35.0" prefWidth="210.0" promptText="Наименование организации" />
+      <Button fx:id="deleteClientButton" layoutX="13.0" layoutY="443.0" mnemonicParsing="false" onAction="#DeleteClient" prefHeight="42.0" prefWidth="102.0" text="Удалить" />
+      <Button fx:id="editClientButton" layoutX="149.0" layoutY="443.0" mnemonicParsing="false" onAction="#EditClient" prefHeight="42.0" prefWidth="102.0" text="Редактировать" />
+      <Button fx:id="addClientButton" layoutX="284.0" layoutY="443.0" mnemonicParsing="false" onAction="#AddClient" prefHeight="42.0" prefWidth="102.0" text="Добавить" />
    </children>
 </AnchorPane>

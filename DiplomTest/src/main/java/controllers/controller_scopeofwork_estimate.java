@@ -14,7 +14,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import modeltables.tableview_scopeofwork;
+import modeltables.Tableview_Scopeofwork;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -25,34 +25,34 @@ import java.util.ResourceBundle;
 public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
-    private TableView<tableview_scopeofwork> scopeOfWorkTableView;
+    private TableView<Tableview_Scopeofwork> scopeOfWorkTableView;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> nameWorkCol;
+    private TableColumn<Tableview_Scopeofwork, String> nameWorkCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> quantityCol;
+    private TableColumn<Tableview_Scopeofwork, String> quantityCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> nameTypeWorkCol;
+    private TableColumn<Tableview_Scopeofwork, String> nameTypeWorkCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> measureUnitsCol;
+    private TableColumn<Tableview_Scopeofwork, String> measureUnitsCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> estimateIDCol;
+    private TableColumn<Tableview_Scopeofwork, String> estimateIDCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> employerFIOCol;
+    private TableColumn<Tableview_Scopeofwork, String> employerFIOCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> dateExecCol;
+    private TableColumn<Tableview_Scopeofwork, String> dateExecCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> priceOfWorkCol;
+    private TableColumn<Tableview_Scopeofwork, String> priceOfWorkCol;
 
     @FXML
-    private TableColumn<tableview_scopeofwork, String> placmentIdCol;
+    private TableColumn<Tableview_Scopeofwork, String> placmentIdCol;
 
     @FXML
     private TextField nameWorkTextField;
@@ -109,7 +109,7 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     }
 
-    private ObservableList<tableview_scopeofwork> olist = FXCollections.observableArrayList();
+    private ObservableList<Tableview_Scopeofwork> olist = FXCollections.observableArrayList();
     public void FillEstimateTable()
     {
         String query ="SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
@@ -145,7 +145,7 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
             {
-                olist.add(new tableview_scopeofwork(rs.getString("NAMEWORK"),
+                olist.add(new Tableview_Scopeofwork(rs.getString("NAMEWORK"),
                         rs.getString("QUANTITY"),
                         rs.getString("typeworkname"),
                         rs.getString("MEASURE"),
@@ -163,15 +163,15 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         {
             System.out.println(ex);
         }
-        nameWorkCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("nameWork"));
-        quantityCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("quantity"));
-        nameTypeWorkCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("nameTypeWork"));
-        measureUnitsCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("measureUnit"));
-        estimateIDCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("estimateId"));
-        employerFIOCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("employerFIO"));
-        dateExecCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("dateExec"));
-        priceOfWorkCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("price"));
-        placmentIdCol.setCellValueFactory(new PropertyValueFactory<tableview_scopeofwork,String>("placementId"));
+        nameWorkCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("nameWork"));
+        quantityCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("quantity"));
+        nameTypeWorkCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("nameTypeWork"));
+        measureUnitsCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("measureUnit"));
+        estimateIDCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("estimateId"));
+        employerFIOCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("employerFIO"));
+        dateExecCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("dateExec"));
+        priceOfWorkCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("price"));
+        placmentIdCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("placementId"));
 
 
         scopeOfWorkTableView.setItems(olist);

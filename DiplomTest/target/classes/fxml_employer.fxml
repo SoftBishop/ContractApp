@@ -10,42 +10,38 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="356.0" prefWidth="762.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Employer">
+<AnchorPane prefHeight="404.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Employer">
    <children>
-      <TableView layoutX="14.0" layoutY="38.0" prefHeight="302.0" prefWidth="389.0">
+      <TableView fx:id="employerTableView" layoutY="67.0" prefHeight="210.0" prefWidth="650.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ФИО" />
-          <TableColumn prefWidth="75.0" text="Дата найма" />
-            <TableColumn prefWidth="126.4000244140625" text="Телефонный номер" />
-            <TableColumn prefWidth="75.0" text="Должность" />
+          <TableColumn fx:id="FioCol" prefWidth="265.59998166561127" text="ФИО" />
+          <TableColumn fx:id="dateHiringCol" prefWidth="119.2000732421875" text="Дата найма" />
+            <TableColumn fx:id="telephoneNumberCol" prefWidth="127.199951171875" text="Телефонный номер" />
+            <TableColumn fx:id="positionCol" prefWidth="137.5999755859375" text="Должность" />
         </columns>
       </TableView>
-      <TextField layoutX="587.0" layoutY="56.0" promptText="Телефонный номер" />
-      <ComboBox editable="true" layoutX="411.0" layoutY="56.0" prefWidth="150.0" promptText="ФИО" />
-      <DatePicker layoutX="411.0" layoutY="115.0" prefHeight="26.0" prefWidth="150.0" promptText="Дата найма" />
-      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="762.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+      <TextField fx:id="telephoneNumberTextField" layoutX="340.0" layoutY="292.0" promptText="Телефонный номер" />
+      <ComboBox fx:id="FIOComoboBox" editable="true" layoutX="13.0" layoutY="291.0" prefWidth="150.0" promptText="ФИО" />
+      <DatePicker fx:id="dateHiringDatePicker" layoutX="174.0" layoutY="291.0" prefHeight="26.0" prefWidth="150.0" promptText="Дата найма" />
+      <ComboBox fx:id="positionComboBox" editable="true" layoutX="499.0" layoutY="292.0" prefWidth="150.0" promptText="Дожность" />
+      <Button fx:id="addEmployerButton" layoutX="443.0" layoutY="330.0" mnemonicParsing="false" onAction="#AddEmployer" prefHeight="34.0" prefWidth="158.0" text="Добавить" />
+      <Button fx:id="deleteEmployerButton" layoutX="24.0" layoutY="330.0" mnemonicParsing="false" onAction="#DeleteEmployer" prefHeight="34.0" prefWidth="158.0" text="Удалить" />
+      <Button fx:id="editEmployerButton" layoutX="236.0" layoutY="330.0" mnemonicParsing="false" onAction="#EditEmployer" prefHeight="34.0" prefWidth="158.0" text="Редактировать" />
+      <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сотрудники" wrappingWidth="178.39999999999986">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
+      <MenuBar fx:id="employerMenuBar" layoutY="1.0" prefHeight="26.0" prefWidth="650.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="About" />
-            </items>
-          </Menu>
+          <Menu fx:id="positionMenu" mnemonicParsing="false" text="Должность">
+               <items>
+                  <MenuItem fx:id="openClientFormMenuItem" mnemonicParsing="false" onAction="#OpenClientForm" text="Добавить должность" />
+               </items></Menu>
         </menus>
       </MenuBar>
-      <ComboBox editable="true" layoutX="586.0" layoutY="116.0" prefWidth="150.0" promptText="Дожность" />
-      <Button layoutX="411.0" layoutY="153.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Добавить" />
-      <Button layoutX="586.0" layoutY="153.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Удалить" />
-      <Button layoutX="496.0" layoutY="195.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="149.0" text="Редактировать" />
    </children>
 </AnchorPane>

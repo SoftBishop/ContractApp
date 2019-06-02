@@ -1,11 +1,11 @@
 package modeltables;
 
-public class tableview_contract {
+public class Tableview_Contract {
     String contractID, contractType,contractDateOfCreation,
             contractDateExec, contractDateFinished ,nameClient, nameOrganization,
             nameEmployer, placementID, contractPrice;
 
-    public tableview_contract(String contractID, String contractType, String contractDateOfCreation,
+    public Tableview_Contract(String contractID, String contractType, String contractDateOfCreation,
                               String contractDateExec, String contractDateFinished,
                               String nameClient, String nameOrganization,
                               String nameEmployer, String placementID, String contractPrice) {

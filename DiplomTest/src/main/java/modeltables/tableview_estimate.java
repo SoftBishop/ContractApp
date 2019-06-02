@@ -1,10 +1,10 @@
 package modeltables;
 
-public class tableview_estimate {
+public class Tableview_Estimate {
 
     String estimateID, dateCreation, typeName, totalPrice, contractID;
 
-    public tableview_estimate(String estimateID, String dateCreation,
+    public Tableview_Estimate(String estimateID, String dateCreation,
                               String typeName, String totalPrice, String contractID) {
         this.estimateID = estimateID;
         this.dateCreation = dateCreation;

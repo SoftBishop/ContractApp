@@ -11,10 +11,10 @@
 
 <AnchorPane prefHeight="401.0" prefWidth="474.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Placement">
    <children>
-      <TableView fx:id="nameWorkTypeCol" layoutY="54.0" prefHeight="226.0" prefWidth="474.0">
+      <TableView fx:id="placementTableView" layoutY="54.0" prefHeight="226.0" prefWidth="474.0">
         <columns>
           <TableColumn fx:id="placementNumCol" prefWidth="156.00006103515625" text="Номер помещения" />
-            <TableColumn prefWidth="128.0" text="Тип" />
+            <TableColumn fx:id="nameTypeCol" prefWidth="128.0" text="Тип" />
             <TableColumn fx:id="squareCol" prefWidth="115.20001220703125" text="Площадь(м2)" />
             <TableColumn fx:id="runOutCol" prefWidth="72.0" text="Износ(%)" />
         </columns>
@@ -26,7 +26,7 @@
       </Text>
       <TextField fx:id="placementNumTextField" layoutX="9.0" layoutY="290.0" prefHeight="38.0" prefWidth="149.0" promptText="Номер помещения" />
       <TextField fx:id="squareTextField" layoutX="9.0" layoutY="349.0" prefHeight="38.0" prefWidth="149.0" promptText="Площадь" />
-      <TextField fx:id="rounOutTextField" layoutX="174.0" layoutY="349.0" prefHeight="38.0" prefWidth="149.0" promptText="Износ" />
+      <TextField fx:id="runOutTextField" layoutX="174.0" layoutY="349.0" prefHeight="38.0" prefWidth="149.0" promptText="Износ" />
       <ComboBox fx:id="typeComboBox" editable="true" layoutX="173.0" layoutY="290.0" prefHeight="38.0" prefWidth="150.0" promptText="Тип помещения" />
       <Button fx:id="deleteButton" layoutX="358.0" layoutY="290.0" mnemonicParsing="false" onAction="#DeletePlacement" prefHeight="26.0" prefWidth="98.0" text="Удалить" />
       <Button fx:id="editButtton" layoutX="358.0" layoutY="326.0" mnemonicParsing="false" onAction="#EditPlacement" prefHeight="26.0" prefWidth="98.0" text="Редактировать" />

@@ -12,7 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import modeltables.tableview_estimate;
+import modeltables.Tableview_Estimate;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -24,22 +24,22 @@ public class Controller_Estimate implements Initializable {
 
 
     @FXML
-    private TableView<tableview_estimate> estimateTableView;
+    private TableView<Tableview_Estimate> estimateTableView;
 
     @FXML
-    private TableColumn<tableview_estimate,String> estimateIdCol;
+    private TableColumn<Tableview_Estimate,String> estimateIdCol;
 
     @FXML
-    private TableColumn<tableview_estimate,String> dateOfCreationCol;
+    private TableColumn<Tableview_Estimate,String> dateOfCreationCol;
 
     @FXML
-    private TableColumn<tableview_estimate,String> typeEstimateCol;
+    private TableColumn<Tableview_Estimate,String> typeEstimateCol;
 
     @FXML
-    private TableColumn<tableview_estimate,String> totalPriceCol;
+    private TableColumn<Tableview_Estimate,String> totalPriceCol;
 
     @FXML
-    private TableColumn<tableview_estimate, String> contractIdCol;
+    private TableColumn<Tableview_Estimate, String> contractIdCol;
 
     @FXML
     private Button createEstimateButton;
@@ -88,7 +88,7 @@ public class Controller_Estimate implements Initializable {
     DoubleClick();
     }
 
-    private ObservableList<tableview_estimate> olist = FXCollections.observableArrayList();
+    private ObservableList<Tableview_Estimate> olist = FXCollections.observableArrayList();
     private void FillEstimateTable()
     {
         try
@@ -111,7 +111,7 @@ public class Controller_Estimate implements Initializable {
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
             {
-                olist.add(new tableview_estimate(rs.getString("ESTID"),
+                olist.add(new Tableview_Estimate(rs.getString("ESTID"),
                                             rs.getString("CRETIONDATE"),
                                             rs.getString("NAMETYPE"),
                                             rs.getString("FINALPRICE"),
@@ -125,11 +125,11 @@ public class Controller_Estimate implements Initializable {
         {
             System.out.println(ex);
         }
-        estimateIdCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("estimateID"));
-        dateOfCreationCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("dateCreation"));
-        typeEstimateCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("typeName"));
-        totalPriceCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("totalPrice"));
-        contractIdCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("contractID"));
+        estimateIdCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("estimateID"));
+        dateOfCreationCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("dateCreation"));
+        typeEstimateCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("typeName"));
+        totalPriceCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("totalPrice"));
+        contractIdCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("contractID"));
 
         estimateTableView.setItems(olist);
     }
@@ -137,11 +137,11 @@ public class Controller_Estimate implements Initializable {
     private void DoubleClick()
     {
         estimateTableView.setRowFactory( tv -> {
-            TableRow<tableview_estimate> row = new TableRow<>();
+            TableRow<Tableview_Estimate> row = new TableRow<>();
 
             row.setOnMouseClicked(event -> {
                 if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    tableview_estimate rowData = row.getItem();
+                    Tableview_Estimate rowData = row.getItem();
                     try {
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_scopeofwork_estimate.fxml"));
                         Parent root = (Parent) fxmlLoader.load();
