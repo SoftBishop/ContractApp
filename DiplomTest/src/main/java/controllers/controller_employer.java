@@ -85,7 +85,17 @@ public class Controller_Employer implements Initializable {
 
     @FXML
     void OpenClientForm(ActionEvent event) {
-        
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_positions.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
 

@@ -5,15 +5,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Menu;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modeltables.Tableview_Scopeofwork;
 
 import java.net.URL;
@@ -100,6 +98,18 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
     private TextField priceTextField;
 
     @FXML
+    private MenuItem typeWorkMenu;
+
+
+    @FXML
+    private MenuItem workerMenu;
+
+
+    @FXML
+    private MenuItem measureUnitsMenu;
+
+
+    @FXML
     void AddWork(ActionEvent event) {
 
     }
@@ -109,7 +119,52 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     }
 
-    private ObservableList<Tableview_Scopeofwork> olist = FXCollections.observableArrayList();
+    @FXML
+    void OpenMeasureUnit(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_measure_units.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+    @FXML
+    void OpenTypeWork(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_type_works.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+    @FXML
+    void OpenWorker(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_employer.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+        private ObservableList<Tableview_Scopeofwork> olist = FXCollections.observableArrayList();
     public void FillEstimateTable()
     {
         String query ="SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
