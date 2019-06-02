@@ -8,14 +8,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="410.0" prefWidth="618.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Estimate">
+<AnchorPane prefHeight="410.0" prefWidth="711.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Estimate">
    <children>
-      <TableView fx:id="estimateTableView" layoutX="14.0" layoutY="64.0" prefHeight="322.0" prefWidth="401.0">
+      <TableView fx:id="estimateTableView" layoutX="14.0" layoutY="64.0" prefHeight="322.0" prefWidth="525.0">
         <columns>
           <TableColumn fx:id="estimateIdCol" prefWidth="104.00000286102295" text="Номер сметы" />
           <TableColumn fx:id="dateOfCreationCol" prefWidth="100.79998779296875" text="Дата создания" />
             <TableColumn fx:id="typeEstimateCol" prefWidth="69.60002136230469" text="Тип" />
             <TableColumn fx:id="totalPriceCol" prefWidth="122.4000244140625" text="Конечная цена" />
+            <TableColumn fx:id="contractIdCol" prefWidth="107.20001220703125" text="Номер договора" />
         </columns>
       </TableView>
       <Text layoutX="22.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сметы" wrappingWidth="85.96637344360352">
@@ -23,9 +24,9 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Button fx:id="createEstimateButton" layoutX="427.0" layoutY="332.0" mnemonicParsing="false" onAction="#OpenScopeOfWork" prefHeight="42.0" prefWidth="146.0" text="Создать смету" />
-      <Button fx:id="deleteEstimateButton" layoutX="427.0" layoutY="64.0" mnemonicParsing="false" onAction="#DeleteEstimate" prefHeight="42.0" prefWidth="146.0" text="Удалить смету" />
-      <ComboBox fx:id="estimateNumberComboBox" editable="true" layoutX="427.0" layoutY="114.0" prefHeight="26.0" prefWidth="145.0" promptText="Номер сметы" />
-      <Button fx:id="lookAllScopeWorkButton" layoutX="427.0" layoutY="282.0" mnemonicParsing="false" onAction="#LookAllScopeOfWork" prefHeight="42.0" prefWidth="146.0" text="Просмотр всех работ" />
+      <Button fx:id="createEstimateButton" layoutX="550.0" layoutY="338.0" mnemonicParsing="false" onAction="#OpenScopeOfWork" prefHeight="42.0" prefWidth="146.0" text="Создать смету" />
+      <Button fx:id="deleteEstimateButton" layoutX="550.0" layoutY="70.0" mnemonicParsing="false" onAction="#DeleteEstimate" prefHeight="42.0" prefWidth="146.0" text="Удалить смету" />
+      <ComboBox fx:id="estimateNumberComboBox" editable="true" layoutX="550.0" layoutY="120.0" prefHeight="26.0" prefWidth="145.0" promptText="Номер сметы" />
+      <Button fx:id="lookAllScopeWorkButton" layoutX="550.0" layoutY="288.0" mnemonicParsing="false" onAction="#LookAllScopeOfWork" prefHeight="42.0" prefWidth="146.0" text="Просмотр всех работ" />
    </children>
 </AnchorPane>

@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import modeltables.tableview_contract;
 import modeltables.tableview_estimate;
 
 import java.net.URL;
@@ -38,6 +37,9 @@ public class Controller_Estimate implements Initializable {
 
     @FXML
     private TableColumn<tableview_estimate,String> totalPriceCol;
+
+    @FXML
+    private TableColumn<tableview_estimate, String> contractIdCol;
 
     @FXML
     private Button createEstimateButton;
@@ -94,12 +96,16 @@ public class Controller_Estimate implements Initializable {
             Connection connection;
 
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("\n" +
-                    "SELECT estimates.estimateid as ESTID, estimates.datecreation as CRETIONDATE,\n" +
-                    "typeestimate.nametype as NAMETYPE, SUM(scopeofworkestimates.PRICE) as FINALPRICE FROM estimates \n" +
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT estimates.estimateid as \n" +
+                    "ESTID,TO_CHAR(estimates.datecreation :: DATE, 'dd.mm.yyyy') as CRETIONDATE,\n" +
+                    "typeestimate.nametype as NAMETYPE, SUM(scopeofworkestimates.PRICE) as FINALPRICE,\n" +
+                    "contracts.dogovorid as CONTRACTID\n" +
+                    "FROM estimates \n" +
                     "join typeestimate on estimates.typeestimatetypeestimateid = typeestimate.typeestimateid\n" +
                     "join scopeofworkestimates on scopeofworkestimates.estimates = estimates.estimateid\n" +
-                    "GROUP BY estimates.estimateid, nametype \n" +
+                    "join contracts ON contracts.dogovorid = estimates.contracts\n" +
+                    "GROUP BY estimates.estimateid, nametype,contracts.dogovorid\n" +
                     "ORDER BY estimates.estimateid asc");
 
             ResultSet rs = preparedStatement.executeQuery();
@@ -108,7 +114,8 @@ public class Controller_Estimate implements Initializable {
                 olist.add(new tableview_estimate(rs.getString("ESTID"),
                                             rs.getString("CRETIONDATE"),
                                             rs.getString("NAMETYPE"),
-                                            rs.getString("FINALPRICE")));
+                                            rs.getString("FINALPRICE"),
+                                            rs.getString("CONTRACTID")));
 
 
             }
@@ -122,7 +129,7 @@ public class Controller_Estimate implements Initializable {
         dateOfCreationCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("dateCreation"));
         typeEstimateCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("typeName"));
         totalPriceCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("totalPrice"));
-
+        contractIdCol.setCellValueFactory(new PropertyValueFactory<tableview_estimate,String>("contractID"));
 
         estimateTableView.setItems(olist);
     }

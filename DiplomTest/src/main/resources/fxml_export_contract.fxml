@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="187.0" prefWidth="251.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Export_Contract">
+   <children>
+      <Text layoutX="14.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Экспорт договора" wrappingWidth="175.73681640625">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Text>
+      <ComboBox fx:id="exportContractComboBox" editable="true" layoutX="50.0" layoutY="53.0" prefHeight="28.0" prefWidth="150.0" promptText="Номер договора" />
+      <Button fx:id="exportContractButton" layoutX="50.0" layoutY="107.0" mnemonicParsing="false" onAction="#ExportContract" prefHeight="34.0" prefWidth="150.0" text="Экпорт" />
+   </children>
+</AnchorPane>

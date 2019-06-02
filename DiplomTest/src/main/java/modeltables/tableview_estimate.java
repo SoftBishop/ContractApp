@@ -2,13 +2,15 @@ package modeltables;
 
 public class tableview_estimate {
 
-    String estimateID, dateCreation, typeName, totalPrice;
+    String estimateID, dateCreation, typeName, totalPrice, contractID;
 
-    public tableview_estimate(String estimateID, String dateCreation, String typeName, String totalPrice) {
+    public tableview_estimate(String estimateID, String dateCreation,
+                              String typeName, String totalPrice, String contractID) {
         this.estimateID = estimateID;
         this.dateCreation = dateCreation;
         this.typeName = typeName;
         this.totalPrice = totalPrice;
+        this.contractID = contractID;
     }
 
     public String getEstimateID() {
@@ -41,5 +43,13 @@ public class tableview_estimate {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public String getContractID() {
+        return contractID;
+    }
+
+    public void setContractID(String contractID) {
+        this.contractID = contractID;
     }
 }
