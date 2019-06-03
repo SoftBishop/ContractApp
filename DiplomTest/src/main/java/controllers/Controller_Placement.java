@@ -102,12 +102,12 @@ public class Controller_Placement implements Initializable {
 
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "SELECT placement.placementid AS PLCID,\n" +
-                    " placement.runoutpercent AS RNOUT, \n" +
-                    " placement.square AS SQUARE,  \n" +
-                    " typeplacement.nameplacementtype AS TYPENAMEPLACEMENT\n" +
-                    " from placement \n" +
-                    " join typeplacement ON typeplacement.typeplacementid = placement.typeplacement");
+                    "SELECT placements.placementid AS PLCID,\n" +
+                    " placements.runoutpercent AS RNOUT, \n" +
+                    " placements.square AS SQUARE,  \n" +
+                    " typeplacements.nameplacementtype AS TYPENAMEPLACEMENT\n" +
+                    " from placements \n" +
+                    " join typeplacements ON typeplacements.typeplacementid = placements.typeplacement");
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
@@ -132,8 +132,35 @@ public class Controller_Placement implements Initializable {
         placementTableView.setItems(placementList);
     }
 
+    private ObservableList typePlacementList = FXCollections.observableArrayList();
+
+    private void FillTypeComboBox()
+    {
+        typePlacementList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT nameplacementtype FROM TYPEPLACEMENTS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                typePlacementList.add(rs.getString("nameplacementtype"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        typeComboBox.setItems(typePlacementList);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillPlacementTableView();
+        FillTypeComboBox();
     }
 }

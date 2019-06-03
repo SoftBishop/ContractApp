@@ -71,6 +71,9 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
     private ComboBox<?> employerComboBox;
 
     @FXML
+    private ComboBox<?> placementComboBox;
+
+    @FXML
     private DatePicker dateExecDatePicker;
 
     @FXML
@@ -91,8 +94,6 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
     @FXML
     private Menu measureUnitsMenuButoon;
 
-    @FXML
-    private ComboBox<?> placementComboBox;
 
     @FXML
     private TextField priceTextField;
@@ -167,20 +168,20 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         private ObservableList<Tableview_Scopeofwork> olist = FXCollections.observableArrayList();
     public void FillEstimateTable()
     {
-        String query ="SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
+        String query ="" +
+                "SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
                 "typeworks.typeworkname, measureunits.namemeasureunit AS MEASURE, estimates.estimateid, employers.fio AS EMPFIO,\n" +
                 "scopeofworkestimates.dateexecution AS DATEEXECUTION ,\n" +
-                "scopeofworkestimates.price AS price, placement.placementid AS placementid\n" +
+                "scopeofworkestimates.price AS price, placements.placementid AS placementid\n" +
                 "FROM scopeofworkestimates \n" +
                 "JOIN typeworks ON typeworks.typeworkid = scopeofworkestimates.typeworks\n" +
-                "JOIN measureunits ON scopeofworkestimates.measureunits = measureunits.mesureunitid\n" +
+                "JOIN measureunits ON scopeofworkestimates.measureunits = measureunits.measureunitid\n" +
                 "JOIN estimates ON scopeofworkestimates.estimates = estimates.estimateid  \n" +
                 "JOIN employers ON employers.employerid = scopeofworkestimates.employers\n" +
-                "JOIN placement ON placement.placementid = scopeofworkestimates.placement\n" +
+                "JOIN placements ON placements.placementid = scopeofworkestimates.placement" +
                 " ";
 
-        String condition = "where estimateid = ?";
-
+        String conditionEst = "where estimateid = ?";
         try
         {
             Connection connection;
@@ -193,7 +194,7 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
             }
             else
             {
-                preparedStatement = connection.prepareStatement(query+condition);
+                preparedStatement = connection.prepareStatement(query+conditionEst);
                 preparedStatement.setInt(1,estimateId);
             }
 
@@ -232,11 +233,6 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         scopeOfWorkTableView.setItems(olist);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //FillEstimateTable();
-    }
-
     private Controller_Estimate controller_estimate;
     public void SetControllerEstimate(Controller_Estimate controller_estimate)
     {
@@ -249,4 +245,156 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
     {
         this.estimateId = estimateId;
     }
+
+
+
+    private ObservableList measureUnitList = FXCollections.observableArrayList();
+    private ObservableList typeWorkList = FXCollections.observableArrayList();
+    private ObservableList estimateList = FXCollections.observableArrayList();
+    private ObservableList employerList = FXCollections.observableArrayList();
+    private ObservableList placementList = FXCollections.observableArrayList();
+
+    public void FillMeasureUnitsComboBox()
+    {
+        measureUnitList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT NAMEMEASUREUNIT FROM MEASUREUNITS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                measureUnitList.add(rs.getString("NAMEMEASUREUNIT"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        measureUnitsComboBox.setItems(measureUnitList);
+    }
+
+    public void FillTypeWorkCombobBox()
+    {
+        typeWorkList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT NAMETYPE FROM TYPEESTIMATE");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                typeWorkList.add(rs.getString("NAMETYPE"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        typeWorkCombobBox.setItems(typeWorkList);
+    }
+
+    public void FillEstimateIDComboBox()
+    {
+        estimateList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT ESTIMATEID FROM ESTIMATES");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                estimateList.add(rs.getString("ESTIMATEID"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        estimateIDComboBox.setItems(estimateList);
+    }
+
+
+    public void FillEmployerComboBox()
+    {
+        employerList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT FIO FROM EMPLOYERS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                employerList.add(rs.getString("FIO"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        employerComboBox.setItems(employerList);
+    }
+
+    public void FillPlacementComboBox()
+    {
+        placementList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT PLACEMENTID FROM PLACEMENTS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                placementList.add(rs.getString("PLACEMENTID"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        placementComboBox.setItems(placementList);
+    }
+
+   /* @FXML
+    private ComboBox<?> placementComboBox;*/
+
+    public void FillAllElements()
+    {
+        FillEstimateTable();
+        FillEmployerComboBox();
+        FillEstimateIDComboBox();
+        FillMeasureUnitsComboBox();
+        FillTypeWorkCombobBox();
+        FillPlacementComboBox();
+    }
+
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        //FillEstimateTable();
+    }
+
+
 }

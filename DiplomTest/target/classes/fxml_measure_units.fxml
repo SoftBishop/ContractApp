@@ -13,8 +13,8 @@
                 <Font size="20.0" />
             </font>
         </Text>
-        <TextField layoutX="14.0" layoutY="69.0" prefHeight="38.0" prefWidth="167.0" promptText="Наименование" />
+        <TextField fx:id="nameUnits" layoutX="14.0" layoutY="69.0" prefHeight="38.0" prefWidth="167.0" promptText="Наименование" />
         <Button fx:id="addMeasureUnitButton" layoutX="205.0" layoutY="31.0" mnemonicParsing="false" onAction="#AddMeasureUnit" prefHeight="38.0" prefWidth="119.0" text="Добавить" />
-        <Button fx:id="deletePositionButton" layoutX="205.0" layoutY="82.0" mnemonicParsing="false" onAction="#DeleteMeasureUnit" prefHeight="38.0" prefWidth="119.0" text="Удалить" />
+        <Button fx:id="deleteMeasureButton" layoutX="205.0" layoutY="82.0" mnemonicParsing="false" onAction="#DeleteMeasureUnit" prefHeight="38.0" prefWidth="119.0" text="Удалить" />
     </children>
 </AnchorPane>

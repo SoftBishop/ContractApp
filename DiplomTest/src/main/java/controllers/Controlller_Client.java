@@ -48,17 +48,60 @@ public class Controlller_Client implements Initializable {
 
     @FXML
     void AddClient(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertClient(?,?)");
+            preparedStatement.setString(1,fioTextField.getText());
+            preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
 
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void DeleteClient(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteClient(?,?)");
+            preparedStatement.setString(1,fioTextField.getText());
+            preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void EditClient(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL editClient(?,?)");
+            preparedStatement.setString(1,fioTextField.getText());
+            preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     private ObservableList<Tableview_Client> clientList = FXCollections.observableArrayList();
@@ -94,8 +137,35 @@ public class Controlller_Client implements Initializable {
         clientTableView.setItems(clientList);
     }
 
+    private ObservableList nameOrgList = FXCollections.observableArrayList();
+
+    public void FillNameOrgComboBox()
+    {
+        nameOrgList.clear();
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT nameorganization FROM organizationS");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next())
+            {
+                nameOrgList.add(rs.getString("nameorganization"));
+            }
+            connection.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+
+        }
+        nameOrgComboBox.setItems(nameOrgList);
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillClientTableView();
+        FillNameOrgComboBox();
     }
 }

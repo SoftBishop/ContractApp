@@ -200,12 +200,7 @@ public class Controller_Contract implements Initializable {
 
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        FillContractTableView();
-        DoubleClick();
 
-    }
     private ObservableList<Tableview_Contract> olist = FXCollections.observableArrayList();
     private void FillContractTableView() {
 
@@ -221,13 +216,13 @@ public class Controller_Contract implements Initializable {
                     "TO_CHAR(contracts.DateExpire :: DATE, 'dd.mm.yyyy') AS DATEEXPIRECONTRACT,  \n" +
                     "contracts.Price AS CONTRACTPRICE, typecontracts.NameTypeContract AS NAMETYPECONTRACT, \n" +
                     "clients.FIO as CLIENTFIO, organizations.NameOrganization AS NAMEORGANIZATION,\n" +
-                    "Employers.FIO as EMPLOYERFIO , placement.placementid as NUMPLACE\n" +
+                    "Employers.FIO as EMPLOYERFIO , placements.placementid as NUMPLACE\n" +
                     "FROM contracts join typecontracts \n" +
                     "on contracts.typecontract = typecontracts.typecontractid \n" +
                     "join clients on contracts.Clients = clients.Client_ID\n" +
                     "join Organizations on contracts.Organizations = Organizations.organizationid\n" +
                     "join Employers on contracts.Employers = Employers.EmployerID\n" +
-                    "join placement on placement.placementid = contracts.placement");
+                    "join placements on placements.placementid = contracts.placement");
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
@@ -302,4 +297,10 @@ public class Controller_Contract implements Initializable {
         });
     }
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        FillContractTableView();
+        DoubleClick();
+
+    }
 }

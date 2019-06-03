@@ -53,17 +53,63 @@ public class Controller_Organization implements Initializable {
 
     @FXML
     void AddOrgRow(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertorganization(?,?,?)");
+            preparedStatement.setString(1,nameOrganizationTextField.getText());
+            preparedStatement.setString(2,execDirNameTextField.getText());
+            preparedStatement.setString(3,telephoneNumberTextField.getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void DeleteOrgRow(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL removeorganization(?,?,?)");
+            preparedStatement.setString(1,nameOrganizationTextField.getText());
+            preparedStatement.setString(2,execDirNameTextField.getText());
+            preparedStatement.setString(3,telephoneNumberTextField.getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void EditOrgRow(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL editeorganization(?,?,?)");
+            preparedStatement.setString(1,nameOrganizationTextField.getText());
+            preparedStatement.setString(2,execDirNameTextField.getText());
+            preparedStatement.setString(3,telephoneNumberTextField.getText());
 
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     private ObservableList<Tableview_Organization> organizationList = FXCollections.observableArrayList();
@@ -75,15 +121,15 @@ public class Controller_Organization implements Initializable {
 
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "SELECT organizations.organizationId AS  ORGID, organizations.nameorganization AS NAMEORG,\n" +
+                    "SELECT organizations.nameorganization AS NAMEORG,\n" +
                     "organizations.executivedirectorname AS DIRNAME, organizations.telephonenumber AS TELNUM \n" +
                     "FROM organizations ");
 
             ResultSet rs = preparedStatement.executeQuery();
             while(rs.next())
             {
-                organizationList.add(new Tableview_Organization(rs.getString("ORGID"),
-                        rs.getString("NAMEORG"),
+                organizationList.add(new Tableview_Organization(rs.getString("NAMEORG"),
+                        rs.getString("DIRNAME"),
                         rs.getString("TELNUM")));
 
             }
@@ -95,7 +141,6 @@ public class Controller_Organization implements Initializable {
         nameOrganizationCol.setCellValueFactory(new PropertyValueFactory<Tableview_Organization,String>("nameOrganization"));
         executiveDirNameCol.setCellValueFactory(new PropertyValueFactory<Tableview_Organization,String>("FIOExecDirector"));
         telephoneNumberCol.setCellValueFactory(new PropertyValueFactory<Tableview_Organization,String>("teleponeNumber"));
-
 
         organizationTableView.setItems(organizationList);
     }

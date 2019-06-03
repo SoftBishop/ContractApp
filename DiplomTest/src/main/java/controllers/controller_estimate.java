@@ -69,7 +69,7 @@ public class Controller_Estimate implements Initializable {
             stage.show();
             controllerScopeofworkEstimate = fxmlLoader.getController();
             controllerScopeofworkEstimate.SetControllerEstimate(this);
-            controllerScopeofworkEstimate.FillEstimateTable();
+            controllerScopeofworkEstimate.FillAllElements();
         }catch (Exception ex)
         {
             System.out.println(ex);
@@ -94,7 +94,6 @@ public class Controller_Estimate implements Initializable {
         try
         {
             Connection connection;
-
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "SELECT estimates.estimateid as \n" +
@@ -116,8 +115,6 @@ public class Controller_Estimate implements Initializable {
                                             rs.getString("NAMETYPE"),
                                             rs.getString("FINALPRICE"),
                                             rs.getString("CONTRACTID")));
-
-
             }
             rs.close();
         }
@@ -151,7 +148,8 @@ public class Controller_Estimate implements Initializable {
                         controllerScopeofworkEstimate = fxmlLoader.getController();
                         controllerScopeofworkEstimate.SetControllerEstimate(this);
                         controllerScopeofworkEstimate.SetEstimateId(Integer.parseInt(rowData.getEstimateID()));
-                        controllerScopeofworkEstimate.FillEstimateTable();
+                        controllerScopeofworkEstimate.FillAllElements();
+
                     }
                     catch (Exception ex)
                     {

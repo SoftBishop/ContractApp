@@ -150,8 +150,6 @@ public class Controller_Contract_Editor implements Initializable {
     @FXML
     private Button placementFormButton;
 
-
-
     @FXML
     private Button deleteContractButton;
 
@@ -167,6 +165,7 @@ public class Controller_Contract_Editor implements Initializable {
     @FXML
     void AddContract(ActionEvent event) {
 
+        System.out.println(dateOfCreationContractDatePicker.getEditor().getText());
     }
 
     @FXML
@@ -210,6 +209,10 @@ public class Controller_Contract_Editor implements Initializable {
 
     }
 
+    private Controller_Scopeofwork_Estimate controller_scopeofwork_estimate;
+
+
+
     @FXML
     void OpenEstimates(ActionEvent event) {
         try
@@ -219,6 +222,7 @@ public class Controller_Contract_Editor implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+
         }catch (Exception ex)
         {
             System.out.println(ex);
@@ -336,7 +340,7 @@ public class Controller_Contract_Editor implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT placementid FROM placement");
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT placementid FROM placements");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next())
             {
