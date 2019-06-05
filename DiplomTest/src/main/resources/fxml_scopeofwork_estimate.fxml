@@ -42,7 +42,7 @@
       <DatePicker fx:id="dateExecDatePicker" layoutX="495.0" layoutY="415.0" promptText="Датавыполнения" AnchorPane.bottomAnchor="71.4" AnchorPane.leftAnchor="495.0" AnchorPane.rightAnchor="432.6" AnchorPane.topAnchor="415.0" />
       <Text layoutX="495.0" layoutY="411.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Дата выполения" />
       <Button fx:id="addWorkButton" layoutX="876.0" layoutY="410.0" mnemonicParsing="false" onAction="#AddWork" prefHeight="37.0" prefWidth="90.0" text="Добавить" AnchorPane.topAnchor="455.0" />
-      <Button fx:id="editWorkButton" layoutX="976.0" layoutY="428.0" mnemonicParsing="false" onAction="#DeleteWork" prefHeight="46.0" prefWidth="98.0" text="Редактировать" AnchorPane.bottomAnchor="36.6" AnchorPane.rightAnchor="27.599999999999994" AnchorPane.topAnchor="428.0" />
+      <Button fx:id="editWorkButton" layoutX="976.0" layoutY="428.0" mnemonicParsing="false" onAction="#EditWork" prefHeight="46.0" prefWidth="98.0" text="Редактировать" AnchorPane.bottomAnchor="36.6" AnchorPane.rightAnchor="27.599999999999994" AnchorPane.topAnchor="428.0" />
       <Button fx:id="deleteWorkButton" layoutX="876.0" layoutY="408.0" mnemonicParsing="false" onAction="#DeleteWork" prefHeight="37.0" prefWidth="90.0" text="Удалить" AnchorPane.topAnchor="408.0" />
       <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="1102.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
         <menus>

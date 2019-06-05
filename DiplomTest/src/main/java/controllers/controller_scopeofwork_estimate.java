@@ -112,12 +112,84 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
     void AddWork(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL insertScopeOfWork(?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,nameWorkTextField.getText());
+            preparedStatement.setInt(2,Integer.parseInt(quantityTextField.getText()));
+            preparedStatement.setInt(3,Integer.parseInt(priceTextField.getText()));
+            java.sql.Date sqlDateExec = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
+            preparedStatement.setDate(4,sqlDateExec);
+            preparedStatement.setString(5,estimateIDComboBox.getEditor().getText());
+            preparedStatement.setString(6,employerComboBox.getEditor().getText());
+            preparedStatement.setString(7,measureUnitsComboBox.getEditor().getText());
+            preparedStatement.setString(8,typeWorkCombobBox.getEditor().getText());
+            preparedStatement.setInt(9,Integer.parseInt(placementComboBox.getEditor().getText()));
 
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void DeleteWork(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL deleteScopeOfWork(?,?)");
+            preparedStatement.setString(1,nameWorkTextField.getText());
+            java.sql.Date sqlDateExec = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDateExec);
 
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+
+    @FXML
+    void EditWork(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL editScopeOfWork(?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setString(1,nameWorkTextField.getText());
+            preparedStatement.setInt(2,Integer.parseInt(quantityTextField.getText()));
+            preparedStatement.setInt(3,Integer.parseInt(priceTextField.getText()));
+            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
+            preparedStatement.setDate(4,sqlDateCreation);
+            preparedStatement.setString(5,estimateIDComboBox.getEditor().getText());
+            preparedStatement.setString(6,employerComboBox.getEditor().getText());
+            preparedStatement.setString(7,measureUnitsComboBox.getEditor().getText());
+            preparedStatement.setString(8,typeWorkCombobBox.getEditor().getText());
+            preparedStatement.setInt(9,Integer.parseInt(placementComboBox.getEditor().getText()));
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
