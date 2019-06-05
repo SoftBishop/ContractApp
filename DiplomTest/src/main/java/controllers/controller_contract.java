@@ -139,6 +139,7 @@ public class Controller_Contract implements Initializable {
 
     @FXML
     void OpenExportFormContract(ActionEvent event) {
+
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_export_contract.fxml"));
             Parent root = (Parent) fxmlLoader.load();

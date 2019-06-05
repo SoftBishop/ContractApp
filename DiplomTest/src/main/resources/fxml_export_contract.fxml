@@ -14,6 +14,7 @@
          </font>
       </Text>
       <ComboBox fx:id="exportContractComboBox" editable="true" layoutX="50.0" layoutY="53.0" prefHeight="28.0" prefWidth="150.0" promptText="Номер договора" />
-      <Button fx:id="exportContractButton" layoutX="50.0" layoutY="107.0" mnemonicParsing="false" onAction="#ExportContract" prefHeight="34.0" prefWidth="150.0" text="Экпорт" />
+      <Button fx:id="exportContractButton" layoutX="50.0" layoutY="138.0" mnemonicParsing="false" onAction="#ExportContract" prefHeight="34.0" prefWidth="150.0" text="Экпорт" />
+      <Button fx:id="ChooseTemplateButton" layoutX="50.0" layoutY="96.0" mnemonicParsing="false" onAction="#ChooseTemplate" prefHeight="34.0" prefWidth="150.0" text="Выбрать шаблон" />
    </children>
 </AnchorPane>
