@@ -70,17 +70,64 @@ public class Controller_Employer implements Initializable {
     private MenuItem openClientFormMenuItem;
     @FXML
     void AddEmployer(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertEmployer(?,?,?,?)");
+            preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
+            java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setString(3,telephoneNumberTextField.getText());
+            preparedStatement.setString(4,positionComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void DeleteEmployer(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteemployer(?)");
+            preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void EditEmployer(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL editemployer(?,?,?,?)");
+            preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
+            java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setString(3,telephoneNumberTextField.getText());
+            preparedStatement.setString(4,positionComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML

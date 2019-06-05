@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class Controller_Estimate implements Initializable {
 
-
+    Controller_Scopeofwork_Estimate controllerScopeofworkEstimate;
     @FXML
     private TableView<Tableview_Estimate> estimateTableView;
 
@@ -54,9 +54,27 @@ public class Controller_Estimate implements Initializable {
     private Button lookAllScopeWorkButton;
 
     @FXML
-    void DeleteEstimate(ActionEvent event) {
+    private Button editEstimateButton;
 
-    }
+    @FXML
+    private ComboBox<?> nameEstimateCombobox;
+
+    @FXML
+    private DatePicker dateofCreationEstimateDatePicker;
+
+    @FXML
+    private ComboBox<?> typeEstimate;
+
+    @FXML
+    private ComboBox<?> numContract;
+
+    @FXML
+    private MenuBar estimateBar;
+
+    @FXML
+    private MenuItem typeEstimateMenuItem;
+
+
 
     @FXML
     void LookAllScopeOfWork(ActionEvent event) {
@@ -77,15 +95,80 @@ public class Controller_Estimate implements Initializable {
     }
 
     @FXML
-    void OpenScopeOfWork(ActionEvent event) {
-
-
+    void OpenTypeEstimate(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_type_estimate.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-    FillEstimateTable();
-    DoubleClick();
+    @FXML
+    void CreateEstimate(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertEstimate(?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
+            java.sql.Date sqlDate = java.sql.Date.valueOf( dateofCreationEstimateDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setInt(3,Integer.parseInt(numContract.getEditor().getText()));
+            preparedStatement.setString(4,typeEstimate.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+    @FXML
+    void DeleteEstimate(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteEstimate(?)");
+            preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
+    }
+
+    @FXML
+    void EditEstimate(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL editEstimate(?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
+            java.sql.Date sqlDate = java.sql.Date.valueOf( dateofCreationEstimateDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setInt(3,Integer.parseInt(numContract.getEditor().getText()));
+            preparedStatement.setString(4,typeEstimate.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     private ObservableList<Tableview_Estimate> olist = FXCollections.observableArrayList();
@@ -111,10 +194,10 @@ public class Controller_Estimate implements Initializable {
             while(rs.next())
             {
                 olist.add(new Tableview_Estimate(rs.getString("ESTID"),
-                                            rs.getString("CRETIONDATE"),
-                                            rs.getString("NAMETYPE"),
-                                            rs.getString("FINALPRICE"),
-                                            rs.getString("CONTRACTID")));
+                        rs.getString("CRETIONDATE"),
+                        rs.getString("NAMETYPE"),
+                        rs.getString("FINALPRICE"),
+                        rs.getString("CONTRACTID")));
             }
             rs.close();
         }
@@ -130,7 +213,6 @@ public class Controller_Estimate implements Initializable {
 
         estimateTableView.setItems(olist);
     }
-
     private void DoubleClick()
     {
         estimateTableView.setRowFactory( tv -> {
@@ -161,7 +243,9 @@ public class Controller_Estimate implements Initializable {
         });
     }
 
-    Controller_Scopeofwork_Estimate controllerScopeofworkEstimate;
-
-
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        FillEstimateTable();
+        DoubleClick();
+    }
 }

@@ -65,17 +65,62 @@ public class Controller_Placement implements Initializable {
 
     @FXML
     void AddPlacement(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertPlacements(?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
+            preparedStatement.setInt(2,Integer.parseInt(runOutTextField.getText()));
+            preparedStatement.setInt(3,Integer.parseInt(squareTextField.getText()));
+            preparedStatement.setString(4,typeComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void DeletePlacement(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL deletePlacements(?)");
+            preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void EditPlacement(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("CALL editPlacement(?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
+            preparedStatement.setInt(2,Integer.parseInt(runOutTextField.getText()));
+            preparedStatement.setInt(3,Integer.parseInt(squareTextField.getText()));
+            preparedStatement.setString(4,typeComboBox.getEditor().getText());
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML

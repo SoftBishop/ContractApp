@@ -165,17 +165,84 @@ public class Controller_Contract_Editor implements Initializable {
     @FXML
     void AddContract(ActionEvent event) {
 
-        System.out.println(dateOfCreationContractDatePicker.getEditor().getText());
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL insertContract(?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
+            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateOfCreationContractDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDateCreation);
+            java.sql.Date sqlDateExec= java.sql.Date.valueOf( dateOfExecContractDatePicker.getValue());
+            preparedStatement.setDate(3,sqlDateExec);
+            java.sql.Date sqlDateExpire= java.sql.Date.valueOf( dateOfFinishContractDatePicker.getValue());
+            preparedStatement.setDate(4,sqlDateExpire);
+            preparedStatement.setInt(5,Integer.parseInt(priceTextField.getText()));
+            preparedStatement.setString(6,organizationComboBox.getEditor().getText());
+            preparedStatement.setString(7,clientComboBox.getEditor().getText());
+            preparedStatement.setString(8,employerComboBox.getEditor().getText());
+            preparedStatement.setString(9,typeContractComboBox.getEditor().getText());
+            preparedStatement.setInt(10,Integer.parseInt(placementCombobox.getEditor().getText()));
+            ResultSet rs = preparedStatement.executeQuery();
+
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
+  /*  java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDate);*/
 
     @FXML
     void DeleteContract(ActionEvent event) {
-
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL deleteContract(?)");
+            preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
+            ResultSet rs = preparedStatement.executeQuery();
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML
     void EditContract(ActionEvent event) {
+        try
+        {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "CALL editEstimate(?,?,?,?,?,?,?,?,?,?)");
+            preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
+            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateOfCreationContractDatePicker.getValue() );
+            preparedStatement.setDate(2,sqlDateCreation);
+            java.sql.Date sqlDateExec= java.sql.Date.valueOf( dateOfExecContractDatePicker.getValue());
+            preparedStatement.setDate(3,sqlDateExec);
+            java.sql.Date sqlDateExpire= java.sql.Date.valueOf( dateOfFinishContractDatePicker.getValue());
+            preparedStatement.setDate(4,sqlDateExpire);
+            preparedStatement.setInt(5,Integer.parseInt(priceTextField.getText()));
+            preparedStatement.setString(6,organizationComboBox.getEditor().getText());
+            preparedStatement.setString(7,clientComboBox.getEditor().getText());
+            preparedStatement.setString(8,employerComboBox.getEditor().getText());
+            preparedStatement.setString(9,typeContractComboBox.getEditor().getText());
+            preparedStatement.setInt(10,Integer.parseInt(placementCombobox.getEditor().getText()));
+            ResultSet rs = preparedStatement.executeQuery();
 
+            rs.close();
+        }
+        catch (Exception ex)
+        {
+            System.out.println(ex);
+        }
     }
 
     @FXML

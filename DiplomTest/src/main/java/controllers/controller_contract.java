@@ -160,6 +160,7 @@ public class Controller_Contract implements Initializable {
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.show();
+
         }catch (Exception ex)
         {
             System.out.println(ex);
