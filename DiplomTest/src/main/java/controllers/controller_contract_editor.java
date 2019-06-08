@@ -20,9 +20,14 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ResourceBundle;
+import java.sql.CallableStatement;
 
 public class Controller_Contract_Editor implements Initializable {
 
@@ -164,37 +169,76 @@ public class Controller_Contract_Editor implements Initializable {
 
     @FXML
     void AddContract(ActionEvent event) {
-
+        LocalDate localDateCretion = dateOfCreationContractDatePicker.getValue();
+        String strDateCretion = localDateCretion.toString();
+        LocalDate localDateExec = dateOfExecContractDatePicker.getValue();
+        String strExecDate = localDateExec.toString();
+        LocalDate localDateFinish = dateOfFinishContractDatePicker.getValue();
+        String strDateFinish = localDateFinish.toString();
+        System.out.println(strDateCretion + strExecDate + strDateFinish);
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL insertContract(?,?,?,?,?,?,?,?,?,?)");
+                    "BEGIN;\n" +
+                    "INSERT INTO Contracts(\n" +
+                    "\tdogovorid,\n" +
+                    "\tdateofcreationcontract,\n" +
+                    "\tdateexecution,\n" +
+                    "\tdateexpire,\n" +
+                    "\tprice,\n" +
+                    "\torganizations,\n" +
+                    "\tclients,\n" +
+                    "\temployers,\n" +
+                    "\ttypecontract,\n" +
+                    "\tplacement)\n" +
+                    "VALUES\n" +
+                    "(?, \n" +
+                    " TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    " TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    " TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    " ?,\n" +
+                    " (Select organizationId from organizations where nameOrganization = ?),\n" +
+                    " (Select Client_ID from clients where FIO = ?),\n" +
+                    " (Select employerID from employers where employers.fio = ?),\n" +
+                    " (Select typeContractID from typecontracts where nameTypeContract = ?),\n" +
+                    "?);\n" +
+                    "\tCOMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
-            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateOfCreationContractDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDateCreation);
-            java.sql.Date sqlDateExec= java.sql.Date.valueOf( dateOfExecContractDatePicker.getValue());
-            preparedStatement.setDate(3,sqlDateExec);
-            java.sql.Date sqlDateExpire= java.sql.Date.valueOf( dateOfFinishContractDatePicker.getValue());
-            preparedStatement.setDate(4,sqlDateExpire);
+
+            preparedStatement.setString(2,strDateCretion);
+
+            preparedStatement.setString(3,strExecDate);
+
+            preparedStatement.setString(4,strDateFinish);
             preparedStatement.setInt(5,Integer.parseInt(priceTextField.getText()));
             preparedStatement.setString(6,organizationComboBox.getEditor().getText());
             preparedStatement.setString(7,clientComboBox.getEditor().getText());
             preparedStatement.setString(8,employerComboBox.getEditor().getText());
             preparedStatement.setString(9,typeContractComboBox.getEditor().getText());
             preparedStatement.setInt(10,Integer.parseInt(placementCombobox.getEditor().getText()));
-            ResultSet rs = preparedStatement.executeQuery();
-
-            rs.close();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {
             System.out.println(ex);
         }
     }
-  /*  java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDate);*/
+  /*  CALL insertContract(
+	5, номер контракта
+	TO_DATE('06.06.2019','DD.MM.YYYY'), дата
+	TO_DATE('06.06.2019','DD.MM.YYYY'),
+	TO_DATE('06.06.2019','DD.MM.YYYY'),
+	12512,
+	'Июнь',
+	'Семен Платонович Созураков',
+	'Ревенский Дмитрий Григорьевич',
+	'Аренда',
+	1
+	)*/
 
     @FXML
     void DeleteContract(ActionEvent event) {
@@ -202,8 +246,12 @@ public class Controller_Contract_Editor implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
+
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL deleteContract(?)");
+                    "BEGIN;\n" +
+                    "DELETE FROM contracts\n" +
+                    "WHERE  dogovorID = ?;\n" +
+                    "COMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
             ResultSet rs = preparedStatement.executeQuery();
             rs.close();
@@ -214,30 +262,114 @@ public class Controller_Contract_Editor implements Initializable {
         }
     }
 
+    private int clientID,orgID,empID,typeContractId;
     @FXML
     void EditContract(ActionEvent event) {
+        LocalDate localDateCretion = dateOfCreationContractDatePicker.getValue();
+        String strDateCretion = localDateCretion.toString();
+        LocalDate localDateExec = dateOfExecContractDatePicker.getValue();
+        String strExecDate = localDateExec.toString();
+        LocalDate localDateFinish = dateOfFinishContractDatePicker.getValue();
+        String strDateFinish = localDateFinish.toString();
+
+
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL editEstimate(?,?,?,?,?,?,?,?,?,?)");
-            preparedStatement.setInt(1,Integer.parseInt(contractTextField.getText()));
-            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateOfCreationContractDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDateCreation);
-            java.sql.Date sqlDateExec= java.sql.Date.valueOf( dateOfExecContractDatePicker.getValue());
-            preparedStatement.setDate(3,sqlDateExec);
-            java.sql.Date sqlDateExpire= java.sql.Date.valueOf( dateOfFinishContractDatePicker.getValue());
-            preparedStatement.setDate(4,sqlDateExpire);
-            preparedStatement.setInt(5,Integer.parseInt(priceTextField.getText()));
-            preparedStatement.setString(6,organizationComboBox.getEditor().getText());
-            preparedStatement.setString(7,clientComboBox.getEditor().getText());
-            preparedStatement.setString(8,employerComboBox.getEditor().getText());
-            preparedStatement.setString(9,typeContractComboBox.getEditor().getText());
-            preparedStatement.setInt(10,Integer.parseInt(placementCombobox.getEditor().getText()));
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.close();
+            PreparedStatement idClient = connection.prepareStatement("" +
+                    "SELECT client_id from clients where fio = ?");
+            idClient.setString(1,clientComboBox.getEditor().getText());
+            ResultSet resultSetIdClient = idClient.executeQuery();
+            while(resultSetIdClient.next())
+            {
+                clientID = resultSetIdClient.getInt("client_id");
+
+            }
+
+            PreparedStatement orgIdStatement = connection.prepareStatement("" +
+                    "SELECT organizationid FROM organizations WHERE nameorganization = ?");
+
+            orgIdStatement.setString(1,organizationComboBox.getEditor().getText());
+            ResultSet resultSetIdOrg = orgIdStatement.executeQuery();
+
+            while(resultSetIdOrg.next())
+            {
+                orgID = resultSetIdOrg.getInt("organizationid");
+            }
+
+           PreparedStatement employerIdStatement = connection.prepareStatement("" +
+                   "Select employerID from employers where employers.fio = ?");
+
+            employerIdStatement.setString(1,employerComboBox.getEditor().getText());
+
+            ResultSet resultSetIdEmp = employerIdStatement.executeQuery();
+            while(resultSetIdEmp.next())
+            {
+                empID = resultSetIdEmp.getInt("employerID");
+            }
+
+            PreparedStatement typeIdContractStatement=connection.prepareStatement("" +
+                    "Select typeContractID from typecontracts " +
+                    "where nameTypeContract = ?");
+
+            typeIdContractStatement.setString(1,typeContractComboBox.getEditor().getText());
+
+            ResultSet resultSetIdTypeContract = typeIdContractStatement.executeQuery();
+
+            while(resultSetIdTypeContract.next())
+            {
+                typeContractId = resultSetIdTypeContract.getInt("typeContractID");
+            }
+
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "begin;\n" +
+                    "UPDATE\n" +
+                    "    Contracts\n" +
+                    "SET\n" +
+                    "\tdateOFCreationContract = TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\tdateExecution =  TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\tdateExpire =  TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\tprice =  ?,\n" +
+                    "\torganizations = ?,\n" +
+                    "\tclients = ?,\n" +
+                    "\temployers = ?,\n" +
+                    "\tTypeContract = ?,\n" +
+                    "\tPlacement = ?\n" +
+                    "WHERE dogovorID = ?;\n" +
+                    "commit;");
+
+            preparedStatement.setString(1,strDateCretion);
+
+            preparedStatement.setString(2,strExecDate);
+
+            preparedStatement.setString(3,strDateFinish);
+
+            preparedStatement.setInt(4,Integer.parseInt(priceTextField.getText()));
+            preparedStatement.setInt(5,orgID);
+            preparedStatement.setInt(6,clientID);
+            preparedStatement.setInt(7,empID);
+            preparedStatement.setInt(8,typeContractId);
+            preparedStatement.setInt(9,Integer.parseInt(placementCombobox.getEditor().getText()));
+
+            preparedStatement.setInt(10,Integer.parseInt(contractTextField.getText()));
+
+            preparedStatement.execute();
+            preparedStatement.close();
+
+
+
+            employerIdStatement.close();
+            resultSetIdEmp.close();
+
+            orgIdStatement.close();
+            resultSetIdOrg.close();
+
+            typeIdContractStatement.close();
+            resultSetIdTypeContract.close();
+
+            connection.close();
         }
         catch (Exception ex)
         {
@@ -247,7 +379,8 @@ public class Controller_Contract_Editor implements Initializable {
 
     @FXML
     void OpenClientForm(ActionEvent event) {
-        try {
+        try
+        {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_client.fxml"));
             Parent root = (Parent) fxmlLoader.load();
             Stage stage = new Stage();
@@ -257,6 +390,8 @@ public class Controller_Contract_Editor implements Initializable {
         catch (Exception ex)
         {
             System.out.println(ex);
+
+
         }
     }
 

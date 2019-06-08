@@ -69,14 +69,25 @@ public class Controller_Placement implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertPlacements(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "INSERT INTO placements(placementid,runoutpercent,square,typeplacement)\n" +
+                    "VALUES(\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "?,\n" +
+                    "(select TypePlacementID from typeplacements \n" +
+                    "where namePlacementType = ?));\n" +
+                    "COMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
             preparedStatement.setInt(2,Integer.parseInt(runOutTextField.getText()));
             preparedStatement.setInt(3,Integer.parseInt(squareTextField.getText()));
             preparedStatement.setString(4,typeComboBox.getEditor().getText());
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.close();
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {
@@ -90,11 +101,19 @@ public class Controller_Placement implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL deletePlacements(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "DELETE FROM placements\n" +
+                    "WHERE PlacementID = ?;\n" +
+                    "COMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.close();
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
+
+
         }
         catch (Exception ex)
         {
@@ -108,14 +127,34 @@ public class Controller_Placement implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL editPlacement(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "UPDATE\n" +
+                    "    placements\n" +
+                    "SET\n" +
+                    "    placementID = ?,\n" +
+                    "\trunoutpercent = ?,\n" +
+                    "\tsquare = ?,\n" +
+                    "    typePlacement = typeTable.typeplacementid\n" +
+                    "FROM\n" +
+                    "    placements AS placementTable\n" +
+                    "    JOIN typeplacements AS typeTable\n" +
+                    "        ON placementTable.typePlacement = typeTable.typeplacementid\n" +
+                    "WHERE\n" +
+                    "    typeTable.namePlacementType = ? and placementID = ?;\n" +
+                    "COMMIT;\n" +
+                    "\n" +
+                    "\n");
             preparedStatement.setInt(1,Integer.parseInt(placementNumTextField.getText()));
             preparedStatement.setInt(2,Integer.parseInt(runOutTextField.getText()));
             preparedStatement.setInt(3,Integer.parseInt(squareTextField.getText()));
             preparedStatement.setString(4,typeComboBox.getEditor().getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.setInt(4,placementID);
 
-            rs.close();
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {
@@ -193,19 +232,52 @@ public class Controller_Placement implements Initializable {
             {
                 typePlacementList.add(rs.getString("nameplacementtype"));
             }
+            preparedStatement.close();
             connection.close();
         }
         catch (Exception ex)
         {
             System.out.println(ex);
-
         }
         typeComboBox.setItems(typePlacementList);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    private int placementID;
+    private void GetDataByClick()
+    {
+        placementTableView.setRowFactory( tv -> {
+            TableRow<Tableview_Placement> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    Tableview_Placement rowData = row.getItem();
+                    try {
+                        placementID = Integer.parseInt(rowData.getNumPlacement());
+
+                        placementNumTextField.setText(rowData.getNumPlacement());
+                        typeComboBox.getEditor().setText(rowData.getTypePlacement());
+                        squareTextField.setText(rowData.getSquare());
+                        runOutTextField.setText(rowData.getRunOut());
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                }
+            });
+            return row ;
+        });
+    }
+
+
+    public void FillAllElements()
+    {
         FillPlacementTableView();
         FillTypeComboBox();
+        GetDataByClick();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        FillAllElements();
     }
 }

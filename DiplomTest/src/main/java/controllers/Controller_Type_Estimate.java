@@ -27,11 +27,16 @@ public class Controller_Type_Estimate {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL inserttypeestimate(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "begin;\n" +
+                    "INSERT INTO typeestimate(typeestimateid,nametype) \n" +
+                    "VALUES (DEFAULT,?);\n" +
+                    "commit;");
             preparedStatement.setString(1,nameTypePlacementTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
 
-            rs.close();
         }
         catch (Exception ex)
         {
@@ -45,11 +50,16 @@ public class Controller_Type_Estimate {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL deletetypeestimate(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "begin;\n" +
+                    "DELETE FROM typeestimate\n" +
+                    "WHERE nameType = ?;\n" +
+                    "commit;");
             preparedStatement.setString(1,nameTypePlacementTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
 
-            rs.close();
         }
         catch (Exception ex)
         {

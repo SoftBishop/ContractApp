@@ -201,11 +201,15 @@ public class Controller_Contract implements Initializable {
         }
 
     }
+    @FXML
+    void UpdateTableView(ActionEvent event) {
+     FillContractTableView();
+    }
 
 
     private ObservableList<Tableview_Contract> olist = FXCollections.observableArrayList();
     private void FillContractTableView() {
-
+        olist.clear();
         try
         {
             Connection connection;
@@ -240,6 +244,7 @@ public class Controller_Contract implements Initializable {
                         rs.getString("NUMPLACE"),
                         rs.getString("CONTRACTPRICE")));
             }
+            connection.close();
         }
         catch (Exception ex)
         {

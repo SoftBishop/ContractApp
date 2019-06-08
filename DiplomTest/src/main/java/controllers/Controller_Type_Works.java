@@ -20,7 +20,7 @@ public class Controller_Type_Works {
     private Button addTypeWorkButton;
 
     @FXML
-    private Button deleteTypeWorkButton;
+    private Button deleteTypeContractButton;
 
     @FXML
     void AddTypeWork(ActionEvent event) {
@@ -28,11 +28,16 @@ public class Controller_Type_Works {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL inserttypeworkname(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("BEGIN;\n" +
+                    "INSERT INTO typeworks(typeworkid,typeworkname) \n" +
+                    "VALUES (DEFAULT,?)\n" +
+                    "END;");
             preparedStatement.setString(1,nameTypeWork.getText());
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();
+            connection.close();
+            addTypeWorkButton.setStyle("-fx-background-color: #00ff00");
         }
         catch (Exception ex)
         {
@@ -46,11 +51,16 @@ public class Controller_Type_Works {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL removetypeworkname(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("BEGIN;\n" +
+                    "DELETE FROM typeworks\n" +
+                    "WHERE typeworkname = ?\n" +
+                    "END;");
             preparedStatement.setString(1,nameTypeWork.getText());
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();
+            connection.close();
+
         }
         catch (Exception ex)
         {

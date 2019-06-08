@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="404.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Employer">
+<AnchorPane prefHeight="380.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Employer">
    <children>
       <TableView fx:id="employerTableView" layoutY="67.0" prefHeight="210.0" prefWidth="650.0">
         <columns>
@@ -27,9 +27,9 @@
       <ComboBox fx:id="FIOComoboBox" editable="true" layoutX="13.0" layoutY="291.0" prefWidth="150.0" promptText="ФИО" />
       <DatePicker fx:id="dateHiringDatePicker" layoutX="174.0" layoutY="291.0" prefHeight="26.0" prefWidth="150.0" promptText="Дата найма" />
       <ComboBox fx:id="positionComboBox" editable="true" layoutX="499.0" layoutY="292.0" prefWidth="150.0" promptText="Дожность" />
-      <Button fx:id="addEmployerButton" layoutX="443.0" layoutY="330.0" mnemonicParsing="false" onAction="#AddEmployer" prefHeight="34.0" prefWidth="158.0" text="Добавить" />
-      <Button fx:id="deleteEmployerButton" layoutX="24.0" layoutY="330.0" mnemonicParsing="false" onAction="#DeleteEmployer" prefHeight="34.0" prefWidth="158.0" text="Удалить" />
-      <Button fx:id="editEmployerButton" layoutX="236.0" layoutY="330.0" mnemonicParsing="false" onAction="#EditEmployer" prefHeight="34.0" prefWidth="158.0" text="Редактировать" />
+      <Button fx:id="addEmployerButton" layoutX="477.0" layoutY="330.0" mnemonicParsing="false" onAction="#AddEmployer" prefHeight="34.0" prefWidth="158.0" text="Добавить" />
+      <Button fx:id="deleteEmployerButton" layoutX="14.0" layoutY="330.0" mnemonicParsing="false" onAction="#DeleteEmployer" prefHeight="34.0" prefWidth="158.0" text="Удалить" />
+      <Button fx:id="editEmployerButton" layoutX="246.0" layoutY="330.0" mnemonicParsing="false" onAction="#EditEmployer" prefHeight="34.0" prefWidth="158.0" text="Редактировать" />
       <Text layoutX="14.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Сотрудники" wrappingWidth="178.39999999999986">
          <font>
             <Font size="24.0" />

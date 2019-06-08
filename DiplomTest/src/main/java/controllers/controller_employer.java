@@ -19,6 +19,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller_Employer implements Initializable {
@@ -70,14 +71,25 @@ public class Controller_Employer implements Initializable {
     private MenuItem openClientFormMenuItem;
     @FXML
     void AddEmployer(ActionEvent event) {
+        LocalDate localDate = dateHiringDatePicker.getValue();
+        String strDateHiring = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertEmployer(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "INSERT INTO employers(employerid,fio,datehiring,telephonenumber,positionsemp)\n" +
+                    "VALUES\n" +
+                    "(DEFAULT,\n" +
+                    " ?,\n" +
+                    " ?,\n" +
+                    " TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "(select PositionID from Positions \n" +
+                    "where Positions.namePosition=?));\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
-            java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setString(2,strDateHiring);
             preparedStatement.setString(3,telephoneNumberTextField.getText());
             preparedStatement.setString(4,positionComboBox.getEditor().getText());
             ResultSet rs = preparedStatement.executeQuery();
@@ -96,11 +108,18 @@ public class Controller_Employer implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteemployer(?)");
-            preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "DELETE FROM EMPLOYERS\n" +
+                    "WHERE employerID = ? ;\n" +
+                    "COMMIT;\n");
+            preparedStatement.setInt(1,empID);
 
-            rs.close();
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            connection.close();
+
         }
         catch (Exception ex)
         {
@@ -110,16 +129,35 @@ public class Controller_Employer implements Initializable {
 
     @FXML
     void EditEmployer(ActionEvent event) {
+        LocalDate localDate = dateHiringDatePicker.getValue();
+        String strDateHiring = localDate.toString();
+
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL editemployer(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "UPDATE\n" +
+                    "    Employers\n" +
+                    "SET\n" +
+                    "    Fio = ?,\n" +
+                    "\tdateHiring = TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\ttelephoneNumber = ?,\n" +
+                    "    positionsEmp = posTable.positionid\n" +
+                    "\t\n" +
+                    "FROM\n" +
+                    "    Employers AS empTable\n" +
+                    "    JOIN positions AS posTable\n" +
+                    "        ON empTable.positionsemp = posTable.positionid\n" +
+                    "WHERE\n" +
+                    "    posTable.nameposition  = ? and employerID = ?;\n" +
+                    "\tCOMMIT;");
             preparedStatement.setString(1,FIOComoboBox.getEditor().getText());
-            java.sql.Date sqlDate = java.sql.Date.valueOf( dateHiringDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setString(2,strDateHiring);
             preparedStatement.setString(3,telephoneNumberTextField.getText());
             preparedStatement.setString(4,positionComboBox.getEditor().getText());
+            preparedStatement.setInt(5,empID);
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();
@@ -143,6 +181,11 @@ public class Controller_Employer implements Initializable {
         {
             System.out.println(ex);
         }
+    }
+
+    @FXML
+    void UpdateTable(ActionEvent event) {
+        FillEmployerTableView();
     }
 
 
@@ -183,10 +226,48 @@ public class Controller_Employer implements Initializable {
         employerTableView.setItems(employerList);
     }
 
+    private int empID;
+    private void GetDataByClick()
+    {
+        employerTableView.setRowFactory( tv -> {
+            TableRow<Tableview_Employer> row = new TableRow<>();
+
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    Tableview_Employer rowData = row.getItem();
+                    try {
+                        Connection connection;
+                        connection = ConnectionPool.getDataSource().getConnection();
+                        PreparedStatement preparedStatement = connection.prepareStatement("" +
+                                "SELECT employerId FROM EMPLOYERS\n" +
+                                "where fio = ? and telephoneNumber = ?");
+                        preparedStatement.setString(1,rowData.getFIO());
+                        preparedStatement.setString(2,rowData.getTelephoneNumber());
+
+                        ResultSet rs = preparedStatement.executeQuery();
+                        while(rs.next())
+                        {
+                            empID = rs.getInt("employerId");
+                        }
+                        preparedStatement.close();
+                        rs.close();
+                        connection.close();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                }
+            });
+            return row ;
+        });
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         FillEmployerTableView();
-
+        GetDataByClick();
     }
 }
 

@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller_Scopeofwork_Estimate implements Initializable {
@@ -112,26 +113,56 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
     void AddWork(ActionEvent event) {
+        LocalDate localDate = dateExecDatePicker.getValue();
+        String strDateCreation = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL insertScopeOfWork(?,?,?,?,?,?,?,?,?)");
+                    "begin;\n" +
+                    "INSERT INTO scopeofworkestimates(\n" +
+                    "scopeofworkestimateid,\n" +
+                    "nameWork,\n" +
+                    "quantity,\n" +
+                    "price,\n" +
+                    "dateexecution,\n" +
+                    "estimates,\n" +
+                    "employers,\n" +
+                    "measureunits,\n" +
+                    "typeworks,\n" +
+                    "placement\n" +
+                    ")\n" +
+                    "VALUES\n" +
+                    "(\n" +
+                    "\tDEFAULT,\n" +
+                    "\t?,\n" +
+                    "\t?,\n" +
+                    "\t?,\n" +
+                    "\tTO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\t(SELECT estimateId FROM estimates WHERE estimateId = ?),\n" +
+                    "\t(SELECT employerID FROM employers WHERE employers.FIO = ?),\n" +
+                    "\t(SELECT MeasureUnitID FROM measureunits where measureunits.NameMeasureUnit = ?),\n" +
+                    "\t(SELECT typeWorkID FROM typeworks where typeworks.typeWorkName = ?),\n" +
+                    "\t(SELECT placementID FROM placements WHERE placements.placementID = ? )\t\n" +
+                    ");\n" +
+                    "commit;");
             preparedStatement.setString(1,nameWorkTextField.getText());
             preparedStatement.setInt(2,Integer.parseInt(quantityTextField.getText()));
             preparedStatement.setInt(3,Integer.parseInt(priceTextField.getText()));
-            java.sql.Date sqlDateExec = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
-            preparedStatement.setDate(4,sqlDateExec);
+
+            preparedStatement.setString(4,strDateCreation);
             preparedStatement.setString(5,estimateIDComboBox.getEditor().getText());
             preparedStatement.setString(6,employerComboBox.getEditor().getText());
             preparedStatement.setString(7,measureUnitsComboBox.getEditor().getText());
             preparedStatement.setString(8,typeWorkCombobBox.getEditor().getText());
             preparedStatement.setInt(9,Integer.parseInt(placementComboBox.getEditor().getText()));
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
+
         }
         catch (Exception ex)
         {
@@ -141,20 +172,24 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
     void DeleteWork(ActionEvent event) {
+        LocalDate localDate = dateExecDatePicker.getValue();
+        String strDateCreation = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL deleteScopeOfWork(?,?)");
-            preparedStatement.setString(1,nameWorkTextField.getText());
-            java.sql.Date sqlDateExec = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDateExec);
+                    "BEGIN;\n" +
+                    "DELETE FROM scopeofworkestimates\n" +
+                    "WHERE  scopeofworkestimateid = ?;\n" +
+                    "COMMIT;");
+            preparedStatement.setInt(1,scopeId);
 
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {
@@ -165,31 +200,64 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
 
     @FXML
     void EditWork(ActionEvent event) {
+        LocalDate localDate = dateExecDatePicker.getValue();
+        String strDateCreation = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL editScopeOfWork(?,?,?,?,?,?,?,?,?)");
+                    "BEGIN;\n" +
+                    "UPDATE\n" +
+                    "    scopeofworkestimates\n" +
+                    "SET\n" +
+                    "\tnameWork = ?,\n" +
+                    "\tquantity = ?,\n" +
+                    "\tprice = ?,\n" +
+                    "\tdateexecution = TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    "\testimates = estimTable.estimateid,\n" +
+                    "\temployers = empTable.employerid,\n" +
+                    "\tmeasureunits = measureTable.measureunitid,\n" +
+                    "\ttypeworks = typeWorkTable.typeworkid,\n" +
+                    "\tplacement = scopeTable.placement\t\n" +
+                    "FROM\n" +
+                    "    scopeofworkestimates as scopeTable\n" +
+                    "\tJOIN estimates AS estimTable ON scopeTable.estimates = estimTable.estimateid\n" +
+                    "\tJOIN employers as empTable ON empTable.employerid = scopeTable.employers\n" +
+                    "\tJOIN measureunits AS measureTable ON scopeTable.measureunits = measureTable.measureunitid\n" +
+                    "\tJOIN typeworks as typeWorkTable ON typeWorkTable.typeworkid = scopeTable.typeworks\n" +
+                    "\tJOIN placements AS placementTable ON placementTable.placementid = scopeTable.placement\t\n" +
+                    "WHERE\n" +
+                    "   estimTable.estimateid = ?\n" +
+                    "   empTable.FIO = ? AND\n" +
+                    "   measureTable.NameMeasureUnit = ? AND\n" +
+                    "   typeWorkTable.typeWorkName = ? AND \n" +
+                    "   placementTable.placementID = ? and \n" +
+                    "   scopeTable.scopeofworkestimateid = ?;\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,nameWorkTextField.getText());
             preparedStatement.setInt(2,Integer.parseInt(quantityTextField.getText()));
             preparedStatement.setInt(3,Integer.parseInt(priceTextField.getText()));
-            java.sql.Date sqlDateCreation = java.sql.Date.valueOf( dateExecDatePicker.getValue() );
-            preparedStatement.setDate(4,sqlDateCreation);
-            preparedStatement.setString(5,estimateIDComboBox.getEditor().getText());
+            preparedStatement.setString(4,strDateCreation);
+            preparedStatement.setInt(5,Integer.parseInt(estimateIDComboBox.getEditor().getText()));
             preparedStatement.setString(6,employerComboBox.getEditor().getText());
             preparedStatement.setString(7,measureUnitsComboBox.getEditor().getText());
             preparedStatement.setString(8,typeWorkCombobBox.getEditor().getText());
             preparedStatement.setInt(9,Integer.parseInt(placementComboBox.getEditor().getText()));
+            preparedStatement.setInt(10,scopeId);
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
+
         }
         catch (Exception ex)
         {
             System.out.println(ex);
         }
+
+        FillAllElements();
     }
 
     @FXML
@@ -447,9 +515,6 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         placementComboBox.setItems(placementList);
     }
 
-   /* @FXML
-    private ComboBox<?> placementComboBox;*/
-
     public void FillAllElements()
     {
         FillEstimateTable();
@@ -458,7 +523,57 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         FillMeasureUnitsComboBox();
         FillTypeWorkCombobBox();
         FillPlacementComboBox();
+        GetDataByClick();
     }
+
+    private int scopeId;
+    private void GetDataByClick()
+    {
+        scopeOfWorkTableView.setRowFactory( tv -> {
+            TableRow<Tableview_Scopeofwork> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    Tableview_Scopeofwork rowData = row.getItem();
+                    try {
+
+                        Connection connection;
+                        connection = ConnectionPool.getDataSource().getConnection();
+                        PreparedStatement preparedStatement = connection.prepareStatement("" +
+                                "SELECT scopeofworkestimateid from scopeofworkestimates\n" +
+                                "where namework = ? and quantity = ? and price = ?");
+                        preparedStatement.setString(1,rowData.getNameWork());
+                        preparedStatement.setInt(2,Integer.parseInt(rowData.getQuantity()));
+                        preparedStatement.setInt(3,Integer.parseInt(rowData.getPrice()));
+                        ResultSet rs = preparedStatement.executeQuery();
+                        while(rs.next())
+                        {
+                            scopeId = rs.getInt("scopeofworkestimateid");
+                        }
+                        preparedStatement.close();
+                        rs.close();
+                        connection.close();
+
+                        nameWorkTextField.setText(rowData.getNameWork());
+                        quantityTextField.setText(rowData.getQuantity());
+                        typeWorkCombobBox.getEditor().setText(rowData.getNameTypeWork());
+                        measureUnitsComboBox.getEditor().setText(rowData.getMeasureUnit());
+                        estimateIDComboBox.getEditor().setText(rowData.getEstimateId());
+                        employerComboBox.getEditor().setText(rowData.getEmployerFIO());
+                        dateExecDatePicker.getEditor().setText(rowData.getDateExec());
+                        priceTextField.setText(rowData.getPrice());
+                        placementComboBox.getEditor().setText(rowData.getPlacementId());
+
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                }
+            });
+            return row ;
+        });
+    }
+
 
 
 

@@ -27,12 +27,19 @@ public class Controller_Positions {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertpositions(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "INSERT INTO positions(positionid,nameposition)\n" +
+                    "VALUES (DEFAULT,?);\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,namePositionTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.close();
+            preparedStatement.execute();
+
+            preparedStatement.close();
+            connection.close();
         }
+
         catch (Exception ex)
         {
             System.out.println(ex);
@@ -45,11 +52,16 @@ public class Controller_Positions {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL removepositions(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "DELETE FROM positions\n" +
+                    "WHERE nameposition = ?;\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,namePositionTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {

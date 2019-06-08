@@ -34,6 +34,11 @@
                         <MenuItem mnemonicParsing="false" text="Сгенерировать план" />
                     </items>
                 </Menu>
+            <Menu mnemonicParsing="false" text="Обновить таблицу?">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#UpdateTableView" text="Обновить" />
+              </items>
+            </Menu>
             </menus>
             <opaqueInsets>
                 <Insets />

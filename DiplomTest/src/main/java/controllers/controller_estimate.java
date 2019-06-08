@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller_Estimate implements Initializable {
@@ -111,14 +112,23 @@ public class Controller_Estimate implements Initializable {
 
     @FXML
     void CreateEstimate(ActionEvent event) {
+         LocalDate localDate = dateofCreationEstimateDatePicker.getValue();
+         String strDateCreation = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertEstimate(?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("BEGIN;\n" +
+                    "INSERT INTO estimates(estimateid,datecreation,contracts,typeestimatetypeestimateid)\n" +
+                    "VALUES\n" +
+                    "(?,\n" +
+                    " TO_DATE(?,'YYYY-MM-DD'),\n" +
+                    " ?,\n" +
+                    "(select TypeEstimateID  from typeEstimate\n" +
+                    "where typeEstimate.nameType = ?));\n" +
+                    "COMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
-            java.sql.Date sqlDate = java.sql.Date.valueOf( dateofCreationEstimateDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDate);
+            preparedStatement.setString(2,strDateCreation);
             preparedStatement.setInt(3,Integer.parseInt(numContract.getEditor().getText()));
             preparedStatement.setString(4,typeEstimate.getEditor().getText());
             ResultSet rs = preparedStatement.executeQuery();
@@ -133,12 +143,22 @@ public class Controller_Estimate implements Initializable {
 
     @FXML
     void DeleteEstimate(ActionEvent event) {
+
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteEstimate(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "DELETE FROM estimates\n" +
+                    "WHERE estimateId = ?\n" +
+                    "COMMIT;\n" +
+                    "BEGIN;\n" +
+                    "DELETE FROM estimates\n" +
+                    "WHERE estimateId = ?\n" +
+                    "COMMIT;");
             preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
+            preparedStatement.setInt(2,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();
@@ -151,16 +171,33 @@ public class Controller_Estimate implements Initializable {
 
     @FXML
     void EditEstimate(ActionEvent event) {
+        LocalDate localDate = dateofCreationEstimateDatePicker.getValue();
+        String strDateCreation = localDate.toString() ;
         try
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL editEstimate(?,?,?,?)");
-            preparedStatement.setInt(1,Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
-            java.sql.Date sqlDate = java.sql.Date.valueOf( dateofCreationEstimateDatePicker.getValue() );
-            preparedStatement.setDate(2,sqlDate);
-            preparedStatement.setInt(3,Integer.parseInt(numContract.getEditor().getText()));
-            preparedStatement.setString(4,typeEstimate.getEditor().getText());
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "UPDATE\n" +
+                    "    Estimates\n" +
+                    "SET\n" +
+                    "\tdateCreation = ?,\n" +
+                    "\tContracts = ?,\n" +
+                    "    TypeEstimateTypeEstimateID = typeTable.typeestimateid\n" +
+                    "\t\n" +
+                    "FROM\n" +
+                    "    Estimates AS estimatesTable\n" +
+                    "    JOIN typeestimate AS typeTable ON \n" +
+                    "\ttypeTable.typeestimateid = estimatesTable.typeestimatetypeestimateid \n" +
+                    "\t      \n" +
+                    "WHERE\n" +
+                    "    typeTable.nameType  = ? and estimateID = ?;\n" +
+                    "COMMIT;");
+            preparedStatement.setString(1,strDateCreation);
+            preparedStatement.setInt(2,Integer.parseInt(numContract.getEditor().getText()));
+            preparedStatement.setString(3,typeEstimate.getEditor().getText());
+            preparedStatement.setString(4,estimateNumberComboBox.getEditor().getText());
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();

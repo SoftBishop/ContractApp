@@ -27,11 +27,17 @@ public class Controller_Type_Contracts {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL inserttypecontracts(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "begin;\n" +
+                    "DELETE FROM typecontracts\n" +
+                    "WHERE nametypecontract = ?\n" +
+                    "commit;");
             preparedStatement.setString(1,nmaeTypeContractTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
+
         }
         catch (Exception ex)
         {
@@ -46,11 +52,17 @@ public class Controller_Type_Contracts {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL removetypecontracts(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "begin;\n" +
+                    "INSERT INTO typecontracts(typecontractid,nametypecontract)VALUES \n" +
+                    "(DEFAULT,?);\n" +
+                    "commit;");
             preparedStatement.setString(1,nmaeTypeContractTextField.getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
 
-            rs.close();
+            preparedStatement.close();
+            connection.close();
+
         }
         catch (Exception ex)
         {

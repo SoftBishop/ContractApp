@@ -5,16 +5,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import modeltables.Tableview_Client;
+import modeltables.Tableview_Contract;
 
 import java.net.URL;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -52,18 +54,26 @@ public class Controlller_Client implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertClient(?,?)");
-            preparedStatement.setString(1,fioTextField.getText());
-            preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
+            CallableStatement callableStatement = connection.prepareCall("BEGIN;" +
+                    "INSERT INTO clients(client_id,fio,organizations)\n" +
+                    "VALUES (DEFAULT,?,\n" +
+                    "(select OrganizationId from organizations \n" +
+                    "where NameOrganization = ?));" +
+                    "COMMIT;");
 
-            ResultSet rs = preparedStatement.executeQuery();
+            callableStatement.setString(1,fioTextField.getText());
+            callableStatement.setString(2,nameOrgComboBox.getEditor().getText());
 
-            rs.close();
+            callableStatement.executeQuery();
+
+            callableStatement.close();
+
         }
         catch (Exception ex)
         {
             System.out.println(ex);
         }
+        FillallElements();
     }
 
     @FXML
@@ -72,17 +82,24 @@ public class Controlller_Client implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL deleteClient(?,?)");
-            preparedStatement.setString(1,fioTextField.getText());
-            preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
-            ResultSet rs = preparedStatement.executeQuery();
+            CallableStatement callableStatement = connection.prepareCall("begin;" +
+                    "DELETE FROM clients\n" +
+                    "WHERE client_id = ?;" +
+                    "COMMIT;");
 
-            rs.close();
+            callableStatement.setInt(1,idClient);
+
+            callableStatement.executeQuery();
+
+            callableStatement.close();
+            connection.close();
         }
         catch (Exception ex)
         {
             System.out.println(ex);
+
         }
+        FillallElements();
     }
 
     @FXML
@@ -91,9 +108,22 @@ public class Controlller_Client implements Initializable {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL editClient(?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("begin;\n" +
+                    "UPDATE\n" +
+                    "    clients\n" +
+                    "SET\n" +
+                    "    fio = ?,\n" +
+                    "    organizations = orgTable.organizationid\n" +
+                    "FROM\n" +
+                    "    clients AS ClientTable\n" +
+                    "    JOIN organizations AS orgTable\n" +
+                    "        ON ClientTable.organizations = orgTable.organizationId\n" +
+                    "WHERE\n" +
+                    "    orgTable.nameorganization = ? and clients.client_id = ?;\n" +
+                    "commit;");
             preparedStatement.setString(1,fioTextField.getText());
             preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
+            preparedStatement.setInt(3,idClient);
             ResultSet rs = preparedStatement.executeQuery();
 
             rs.close();
@@ -102,11 +132,14 @@ public class Controlller_Client implements Initializable {
         {
             System.out.println(ex);
         }
+
+        FillallElements();
+
     }
 
     private ObservableList<Tableview_Client> clientList = FXCollections.observableArrayList();
     private void FillClientTableView() {
-
+        clientList.clear();
         try
         {
             Connection connection;
@@ -163,9 +196,48 @@ public class Controlller_Client implements Initializable {
         nameOrgComboBox.setItems(nameOrgList);
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    public void FillallElements()
+    {
         FillClientTableView();
         FillNameOrgComboBox();
+    }
+
+    private int idClient;
+    private void GetDataByClick()
+    {
+        clientTableView.setRowFactory( tv -> {
+            TableRow<Tableview_Client> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 1 && (! row.isEmpty()) ) {
+                    Tableview_Client rowData = row.getItem();
+                    try {
+
+                        Connection connection;
+                        connection = ConnectionPool.getDataSource().getConnection();
+                        PreparedStatement preparedStatement = connection.prepareStatement("" +
+                                "SELECT client_id FROM clients where fio = ?");
+                        preparedStatement.setString(1,rowData.getFio());
+                        ResultSet rs = preparedStatement.executeQuery();
+                        while(rs.next())
+                        {
+                            idClient = Integer.parseInt(rs.getString("client_id"));
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        System.out.println(ex);
+                    }
+                }
+            });
+            return row ;
+        });
+    }
+
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        FillallElements();
+        GetDataByClick();
     }
 }

@@ -30,11 +30,18 @@ public class Controller_Measure_Unit {
         {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("CALL insertmeasureunit(?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "BEGIN;\n" +
+                    "INSERT INTO measureunits(measureunitid,NAMEMEASUREUNIT) \n" +
+                    "VALUES (DEFAULT,?)\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,nameUnits.getText());
-            ResultSet rs = preparedStatement.executeQuery();
 
-            rs.close();
+            preparedStatement.execute();
+            preparedStatement.close();
+
+            connection.close();
+
         }
         catch (Exception ex)
         {
@@ -49,12 +56,16 @@ public class Controller_Measure_Unit {
             Connection connection;
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
-                    "CALL removemeasureunit(?)");
+                    "BEGIN;\n" +
+                    "DELETE FROM measureunits\n" +
+                    "WHERE NAMEMEASUREUNIT = ?;\n" +
+                    "COMMIT;");
             preparedStatement.setString(1,nameUnits.getText());
 
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
 
-            rs.close();
         }
         catch (Exception ex)
         {
