@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class Controller_Scopeofwork_Estimate implements Initializable {
-
+    ErrorFormClass errorFormClass;
     @FXML
     private TableView<Tableview_Scopeofwork> scopeOfWorkTableView;
 
@@ -166,7 +167,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -193,7 +195,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -254,7 +257,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
         FillAllElements();
@@ -271,7 +275,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -286,7 +291,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -301,7 +307,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -357,7 +364,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         nameWorkCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("nameWork"));
         quantityCol.setCellValueFactory(new PropertyValueFactory<Tableview_Scopeofwork,String>("quantity"));
@@ -412,7 +420,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         measureUnitsComboBox.setItems(measureUnitList);
@@ -436,7 +445,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         typeWorkCombobBox.setItems(typeWorkList);
@@ -460,7 +470,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         estimateIDComboBox.setItems(estimateList);
@@ -485,7 +496,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         employerComboBox.setItems(employerList);
@@ -509,7 +521,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         placementComboBox.setItems(placementList);
@@ -566,7 +579,8 @@ public class Controller_Scopeofwork_Estimate implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

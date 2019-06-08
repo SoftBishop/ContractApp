@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -48,6 +49,7 @@ public class Controller_Organization implements Initializable {
     @FXML
     private Button AddOrganizationRow;
 
+    ErrorFormClass errorFormClass;
     @FXML
     void AddOrgRow(ActionEvent event) {
         try
@@ -69,7 +71,8 @@ public class Controller_Organization implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         FillOrganizationTableView();
     }
@@ -94,7 +97,8 @@ public class Controller_Organization implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         FillOrganizationTableView();
     }
@@ -124,7 +128,8 @@ public class Controller_Organization implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         FillOrganizationTableView();
     }
@@ -153,7 +158,8 @@ public class Controller_Organization implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         nameOrganizationCol.setCellValueFactory(new PropertyValueFactory<Tableview_Organization,String>("nameOrganization"));
         executiveDirNameCol.setCellValueFactory(new PropertyValueFactory<Tableview_Organization,String>("FIOExecDirector"));
@@ -187,7 +193,8 @@ public class Controller_Organization implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

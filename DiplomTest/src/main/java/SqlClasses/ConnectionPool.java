@@ -28,9 +28,11 @@ public class ConnectionPool {
             dataSource = new HikariDataSource();
             dataSource.setDriverClassName(properties.getProperty(DB_DRIVER_CLASS));
 
+
             dataSource.setJdbcUrl(properties.getProperty(DB_URL));
             dataSource.setUsername(properties.getProperty(DB_USERNAME));
             dataSource.setPassword(properties.getProperty(DB_PASSWORD));
+
 
             dataSource.setMinimumIdle(100);
             dataSource.setMaximumPoolSize(2000);
@@ -45,6 +47,8 @@ public class ConnectionPool {
     public static DataSource getDataSource(){
         return dataSource;
     }
+
+
 
 
 }

@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 public class Controller_Estimate implements Initializable {
 
     Controller_Scopeofwork_Estimate controllerScopeofworkEstimate;
+    ErrorFormClass errorFormClass;
     @FXML
     private TableView<Tableview_Estimate> estimateTableView;
 
@@ -91,7 +93,8 @@ public class Controller_Estimate implements Initializable {
             controllerScopeofworkEstimate.FillAllElements();
         }catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -106,7 +109,8 @@ public class Controller_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -137,7 +141,8 @@ public class Controller_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -165,7 +170,8 @@ public class Controller_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -204,7 +210,8 @@ public class Controller_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -240,7 +247,8 @@ public class Controller_Estimate implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         estimateIdCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("estimateID"));
         dateOfCreationCol.setCellValueFactory(new PropertyValueFactory<Tableview_Estimate,String>("dateCreation"));
@@ -272,7 +280,8 @@ public class Controller_Estimate implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

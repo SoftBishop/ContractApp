@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ public class Controller_Positions {
     @FXML
     private Button deletePositionButton;
 
+    ErrorFormClass errorFormClass;
     @FXML
     void AddPosition(ActionEvent event) {
         try
@@ -42,7 +44,8 @@ public class Controller_Positions {
 
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -65,7 +68,8 @@ public class Controller_Positions {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 

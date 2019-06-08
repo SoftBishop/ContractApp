@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class Controller_Employer implements Initializable {
 
+    ErrorFormClass errorFormClass;
 
     @FXML
     private TableView<Tableview_Employer> employerTableView;
@@ -98,7 +100,8 @@ public class Controller_Employer implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -123,7 +126,8 @@ public class Controller_Employer implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -164,7 +168,8 @@ public class Controller_Employer implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -179,7 +184,8 @@ public class Controller_Employer implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -215,7 +221,8 @@ public class Controller_Employer implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         FioCol.setCellValueFactory(new PropertyValueFactory<Tableview_Employer,String>("FIO"));
         dateHiringCol.setCellValueFactory(new PropertyValueFactory<Tableview_Employer,String>("dateHiring"));
@@ -256,7 +263,8 @@ public class Controller_Employer implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -224,21 +225,11 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
-  /*  CALL insertContract(
-	5, номер контракта
-	TO_DATE('06.06.2019','DD.MM.YYYY'), дата
-	TO_DATE('06.06.2019','DD.MM.YYYY'),
-	TO_DATE('06.06.2019','DD.MM.YYYY'),
-	12512,
-	'Июнь',
-	'Семен Платонович Созураков',
-	'Ревенский Дмитрий Григорьевич',
-	'Аренда',
-	1
-	)*/
+   ErrorFormClass errorFormClass;
 
     @FXML
     void DeleteContract(ActionEvent event) {
@@ -258,7 +249,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -373,7 +365,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -389,9 +382,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
-
-
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -406,7 +398,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
     }
@@ -427,7 +420,8 @@ public class Controller_Contract_Editor implements Initializable {
 
         }catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -442,7 +436,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -457,7 +452,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
     private ObservableList employersList = FXCollections.observableArrayList();
@@ -483,8 +479,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
-
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         employerComboBox.setItems(employersList);
     }
@@ -506,7 +502,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         organizationComboBox.setItems(organizationsList);
@@ -529,8 +526,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
-
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         typeContractComboBox.setItems(typesList);
     }
@@ -552,7 +549,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         placementCombobox.setItems(placementList);
@@ -575,8 +573,8 @@ public class Controller_Contract_Editor implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
-
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         clientComboBox.setItems(clientList);
     }

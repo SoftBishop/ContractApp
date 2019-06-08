@@ -1,16 +1,27 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 
 public class Controller_Generate_Plan {
+
+    ErrorFormClass errorFormClass;
+
 
     @FXML
     private DatePicker currentDateDatePicker;
@@ -43,8 +54,49 @@ public class Controller_Generate_Plan {
                     "JOIN employers ON employers.employerid = scopeofworkestimates.employers\n" +
                     "JOIN placements ON placements.placementid = scopeofworkestimates.placement\n" +
                     "where dateExecution BETWEEN TO_DATE(?,'YYYY-MM-DD') AND TO_DATE(?,'YYYY-MM-DD');");
-            preparedStatement.setString(1,nmaeTypeContractTextField.getText());
-            preparedStatement.execute();
+            preparedStatement.setString(1,strDateCur);
+            preparedStatement.setString(2,strDateFinish);
+            ResultSet rs = preparedStatement.executeQuery();
+
+            int i = 2;
+
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet spreadsheet = workbook
+                    .createSheet("test");
+            XSSFRow row = spreadsheet.createRow(1);
+            XSSFCell cell;
+            cell=row.createCell(1);
+            cell.setCellValue("NAMEWORK");
+            cell=row.createCell(2);
+            cell.setCellValue("QUANTITY");
+            cell=row.createCell(3);
+            cell.setCellValue("MEASURE");
+            cell=row.createCell(4);
+            cell.setCellValue("EMPFIO");
+            cell=row.createCell(5);
+            cell.setCellValue("DATEEXECUTION");
+            cell=row.createCell(6);
+            cell.setCellValue("DONE?");
+
+            while(rs.next())
+            {
+                row=spreadsheet.createRow(i);
+                cell=row.createCell(1);
+                cell.setCellValue(rs.getString("NAMEWORK"));
+                cell=row.createCell(2);
+                cell.setCellValue(rs.getString("QUANTITY"));
+                cell=row.createCell(3);
+                cell.setCellValue(rs.getString("MEASURE"));
+                cell=row.createCell(4);
+                cell.setCellValue(rs.getString("EMPFIO"));
+                cell=row.createCell(5);
+                cell.setCellValue(rs.getString("DATEEXECUTION"));
+                i++;
+            }
+            FileOutputStream out = new FileOutputStream(
+                    new File("exceldatabase.xlsx"));
+            workbook.write(out);
+            out.close();
 
             preparedStatement.close();
             connection.close();
@@ -52,7 +104,8 @@ public class Controller_Generate_Plan {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 

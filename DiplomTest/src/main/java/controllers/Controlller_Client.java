@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import java.util.ResourceBundle;
 
 public class Controlller_Client implements Initializable {
 
+    ErrorFormClass errorFormClass;
     @FXML
     private TableView<Tableview_Client> clientTableView;
 
@@ -71,7 +73,8 @@ public class Controlller_Client implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         FillallElements();
     }
@@ -96,7 +99,8 @@ public class Controlller_Client implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         FillallElements();
@@ -130,7 +134,8 @@ public class Controlller_Client implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
         FillallElements();
@@ -161,7 +166,8 @@ public class Controlller_Client implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         fioCol.setCellValueFactory(new PropertyValueFactory<Tableview_Client,String>("fio"));
         nameOrgCol.setCellValueFactory(new PropertyValueFactory<Tableview_Client,String>("nameOrg"));

@@ -1,12 +1,15 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,6 +18,8 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import modeltables.Tableview_Contract;
 
 import java.net.URL;
@@ -92,6 +97,7 @@ public class Controller_Contract implements Initializable {
     @FXML
     private Button exportContractButton;
 
+    ErrorFormClass errorFormClass;
     @FXML
     void GeneratePlanFormButton(ActionEvent event) {
         try {
@@ -103,7 +109,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -118,7 +125,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -133,7 +141,8 @@ public class Controller_Contract implements Initializable {
             stage.show();
         }catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -149,7 +158,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -164,7 +174,8 @@ public class Controller_Contract implements Initializable {
 
         }catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
     }
@@ -182,7 +193,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -197,7 +209,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
     }
@@ -248,7 +261,8 @@ public class Controller_Contract implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         numberContractColumnTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractID"));
         typeContractColTable.setCellValueFactory(new PropertyValueFactory<Tableview_Contract,String>("contractType"));
@@ -296,13 +310,15 @@ public class Controller_Contract implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });
             return row ;
         });
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

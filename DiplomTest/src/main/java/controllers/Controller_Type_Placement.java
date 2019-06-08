@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,6 +22,7 @@ public class Controller_Type_Placement {
     @FXML
     private Button deleteTypePlacmentButton;
 
+    ErrorFormClass errorFormClass;
     @FXML
     void AddTypePlacement(ActionEvent event) {
         try
@@ -41,7 +43,8 @@ public class Controller_Type_Placement {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
     }
@@ -64,7 +67,8 @@ public class Controller_Type_Placement {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 

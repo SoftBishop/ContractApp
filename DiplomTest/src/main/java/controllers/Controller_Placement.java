@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -62,7 +63,7 @@ public class Controller_Placement implements Initializable {
     private MenuItem openFormTypePlacementMenuItem;
 
 
-
+    ErrorFormClass errorFormClass;
     @FXML
     void AddPlacement(ActionEvent event) {
         try
@@ -91,7 +92,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -117,7 +119,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -158,7 +161,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -173,7 +177,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -205,7 +210,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         placementNumCol.setCellValueFactory(new PropertyValueFactory<Tableview_Placement,String>("numPlacement"));
         nameTypeCol.setCellValueFactory(new PropertyValueFactory<Tableview_Placement,String>("typePlacement"));
@@ -237,7 +243,8 @@ public class Controller_Placement implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
         typeComboBox.setItems(typePlacementList);
     }
@@ -260,7 +267,8 @@ public class Controller_Placement implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

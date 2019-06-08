@@ -1,5 +1,6 @@
 package controllers;
 
+import errorpack.ErrorFormClass;
 import officeclasses.WordsContext;
 import SqlClasses.ConnectionPool;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ public class Controller_Export_Contract {
 
     private String wordFile;
 
+    ErrorFormClass errorFormClass;
     @FXML
     private ComboBox<?> exportContractComboBox;
 
@@ -92,7 +94,8 @@ public class Controller_Export_Contract {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
 
 

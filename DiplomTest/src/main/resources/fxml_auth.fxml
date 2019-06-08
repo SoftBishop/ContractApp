@@ -16,7 +16,7 @@
                         <Font name="Century Schoolbook" size="15.0" />
                     </font>
                 </TextField>
-                <Button fx:id="buttonAuth" layoutX="220.0" layoutY="178.0" mnemonicParsing="false" onAction="#TestAction" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #FF7F00;" text="Войти">
+                <Button fx:id="buttonAuth" layoutX="220.0" layoutY="178.0" mnemonicParsing="false" onAction="#Auth" prefHeight="39.0" prefWidth="148.0" style="-fx-background-color: #FF7F00;" text="Войти">
                     <font>
                         <Font name="Century Schoolbook" size="27.0" />
                     </font>

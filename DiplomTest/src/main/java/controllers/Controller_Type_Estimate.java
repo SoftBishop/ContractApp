@@ -1,6 +1,7 @@
 package controllers;
 
 import SqlClasses.ConnectionPool;
+import errorpack.ErrorFormClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -12,6 +13,7 @@ import java.sql.ResultSet;
 
 public class Controller_Type_Estimate {
 
+    ErrorFormClass errorFormClass;
     @FXML
     private Button addTypeEstimateButton;
 
@@ -40,7 +42,8 @@ public class Controller_Type_Estimate {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
@@ -63,7 +66,8 @@ public class Controller_Type_Estimate {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
         }
     }
 
