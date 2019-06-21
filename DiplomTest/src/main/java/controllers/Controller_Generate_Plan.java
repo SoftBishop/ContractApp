@@ -44,7 +44,8 @@ public class Controller_Generate_Plan {
             connection = ConnectionPool.getDataSource().getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("" +
                     "SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
-                    "typeworks.typeworkname, measureunits.namemeasureunit AS MEASURE, estimates.estimateid, employers.fio AS EMPFIO,\n" +
+                    "typeworks.typeworkname, measureunits.namemeasureunit AS MEASURE, estimates.estimateid, " +
+                    "employers.fio AS EMPFIO,\n" +
                     "scopeofworkestimates.dateexecution AS DATEEXECUTION ,\n" +
                     "scopeofworkestimates.price AS price, placements.placementid AS placementid\n" +
                     "FROM scopeofworkestimates \n" +
@@ -62,21 +63,23 @@ public class Controller_Generate_Plan {
 
             XSSFWorkbook workbook = new XSSFWorkbook();
             XSSFSheet spreadsheet = workbook
-                    .createSheet("test");
+                    .createSheet("План работ ");
             XSSFRow row = spreadsheet.createRow(1);
             XSSFCell cell;
             cell=row.createCell(1);
-            cell.setCellValue("NAMEWORK");
+            cell.setCellValue("Наименование работ");
             cell=row.createCell(2);
-            cell.setCellValue("QUANTITY");
+            cell.setCellValue("Количество");
             cell=row.createCell(3);
-            cell.setCellValue("MEASURE");
+            cell.setCellValue("Ед.ч.");
             cell=row.createCell(4);
-            cell.setCellValue("EMPFIO");
+            cell.setCellValue("Рабочий");
             cell=row.createCell(5);
-            cell.setCellValue("DATEEXECUTION");
+            cell.setCellValue("Дата Выполнения");
             cell=row.createCell(6);
-            cell.setCellValue("DONE?");
+            cell.setCellValue("Помещение");
+            cell=row.createCell(7);
+            cell.setCellValue("Сделано?");
 
             while(rs.next())
             {
@@ -91,10 +94,12 @@ public class Controller_Generate_Plan {
                 cell.setCellValue(rs.getString("EMPFIO"));
                 cell=row.createCell(5);
                 cell.setCellValue(rs.getString("DATEEXECUTION"));
+                cell = row.createCell(6);
+                cell.setCellValue(rs.getString("placementid"));
                 i++;
             }
             FileOutputStream out = new FileOutputStream(
-                    new File("exceldatabase.xlsx"));
+                    new File("План работ.xlsx"));
             workbook.write(out);
             out.close();
 

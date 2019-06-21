@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="435.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Placement">
+   <children>
+      <TableView fx:id="placementTableView" layoutY="70.0" prefHeight="226.0" prefWidth="481.0">
+        <columns>
+          <TableColumn fx:id="placementNumCol" prefWidth="156.00006103515625" text="Номер помещения" />
+            <TableColumn fx:id="nameTypeCol" prefWidth="128.0" text="Тип" />
+            <TableColumn fx:id="squareCol" prefWidth="115.20001220703125" text="Площадь(м2)" />
+            <TableColumn fx:id="runOutCol" prefWidth="72.0" text="Износ(%)" />
+        </columns>
+      </TableView>
+      <Text layoutX="21.0" layoutY="52.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Помещения" wrappingWidth="139.18673706054688">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </Text>
+      <TextField fx:id="placementNumTextField" layoutX="16.0" layoutY="306.0" prefHeight="38.0" prefWidth="149.0" promptText="Номер помещения" />
+      <TextField fx:id="squareTextField" layoutX="16.0" layoutY="365.0" prefHeight="38.0" prefWidth="149.0" promptText="Площадь" />
+      <TextField fx:id="runOutTextField" layoutX="181.0" layoutY="365.0" prefHeight="38.0" prefWidth="149.0" promptText="Износ" />
+      <ComboBox fx:id="typeComboBox" editable="true" layoutX="180.0" layoutY="306.0" prefHeight="38.0" prefWidth="150.0" promptText="Тип помещения" />
+      <Button fx:id="deleteButton" layoutX="365.0" layoutY="306.0" mnemonicParsing="false" onAction="#DeletePlacement" prefHeight="26.0" prefWidth="98.0" text="Удалить" />
+      <Button fx:id="editButtton" layoutX="365.0" layoutY="342.0" mnemonicParsing="false" onAction="#EditPlacement" prefHeight="26.0" prefWidth="98.0" text="Редактировать" />
+      <Button fx:id="addButton" layoutX="365.0" layoutY="377.0" mnemonicParsing="false" onAction="#AddPlacement" prefHeight="26.0" prefWidth="98.0" text="Добавить" />
+      <MenuBar layoutY="1.0" prefHeight="26.0" prefWidth="482.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="1.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Типы помещений">
+            <items>
+              <MenuItem fx:id="openFormTypePlacementMenuItem" mnemonicParsing="false" onAction="#OpenFormTypePlacement" text="Добавить тип" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </children>
+</AnchorPane>

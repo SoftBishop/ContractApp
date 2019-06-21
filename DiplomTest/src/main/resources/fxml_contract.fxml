@@ -34,6 +34,11 @@
                         <MenuItem mnemonicParsing="false" text="Сгенерировать план" />
                     </items>
                 </Menu>
+            <Menu fx:id="employerMenu" mnemonicParsing="false" text="Сотрудники">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#OpenEmployerForm" text="Посмотреть  сотрудников" />
+              </items>
+            </Menu>
             <Menu mnemonicParsing="false" text="Обновить таблицу?">
               <items>
                 <MenuItem mnemonicParsing="false" onAction="#UpdateTableView" text="Обновить" />
@@ -58,7 +63,7 @@
                 <Font name="Century Schoolbook" size="12.0" />
             </font>
         </Button>
-        <Button fx:id="organizationFormButton" layoutX="1004.0" layoutY="464.0" mnemonicParsing="false" onAction="#OpenOrganizationContract" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Организацию" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true" AnchorPane.rightAnchor="7.0">
+        <Button fx:id="organizationFormButton" layoutX="1270.0" layoutY="450.0" mnemonicParsing="false" onAction="#OpenOrganizationContract" prefHeight="54.0" prefWidth="120.0" style="-fx-border-color: #FF7F00;" text="Добавить Организацию" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true" AnchorPane.rightAnchor="7.0">
             <font>
                 <Font name="Century Schoolbook" size="12.0" />
             </font>

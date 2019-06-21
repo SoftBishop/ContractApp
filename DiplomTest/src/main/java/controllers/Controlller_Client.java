@@ -66,7 +66,7 @@ public class Controlller_Client implements Initializable {
             callableStatement.setString(1,fioTextField.getText());
             callableStatement.setString(2,nameOrgComboBox.getEditor().getText());
 
-            callableStatement.executeQuery();
+            callableStatement.execute();
 
             callableStatement.close();
 
@@ -128,9 +128,10 @@ public class Controlller_Client implements Initializable {
             preparedStatement.setString(1,fioTextField.getText());
             preparedStatement.setString(2,nameOrgComboBox.getEditor().getText());
             preparedStatement.setInt(3,idClient);
-            ResultSet rs = preparedStatement.executeQuery();
+            preparedStatement.execute();
+            preparedStatement.close();
+            connection.close();
 
-            rs.close();
         }
         catch (Exception ex)
         {
@@ -196,7 +197,8 @@ public class Controlller_Client implements Initializable {
         }
         catch (Exception ex)
         {
-            System.out.println(ex);
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
 
         }
         nameOrgComboBox.setItems(nameOrgList);
@@ -231,7 +233,8 @@ public class Controlller_Client implements Initializable {
                     }
                     catch (Exception ex)
                     {
-                        System.out.println(ex);
+                        errorFormClass = new ErrorFormClass();
+                        errorFormClass.OpenErrorForm(ex);
                     }
                 }
             });

@@ -2,8 +2,6 @@ package controllers;
 
 import SqlClasses.ConnectionPool;
 import errorpack.ErrorFormClass;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -67,6 +65,7 @@ public class Controller_Auth {
                 Parent root = (Parent) fxmlLoader.load();
                 Stage stage = new Stage();
                 stage.setScene(new Scene(root));
+                stage.setTitle("Договора");
                 stage.show();
                 controller_contract = fxmlLoader.getController();
                 controller_contract.setController_auth(this);

@@ -42,7 +42,6 @@ public class Controller_Export_Contract {
             wordFile = selectedTemplate.getAbsolutePath();
         }
     }
-
     @FXML
     void ExportContract(ActionEvent event) {
         try {
@@ -97,11 +96,5 @@ public class Controller_Export_Contract {
             errorFormClass = new ErrorFormClass();
             errorFormClass.OpenErrorForm(ex);
         }
-
-
-
     }
-
-
-
 }

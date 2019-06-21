@@ -14,7 +14,13 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modeltables.Tableview_Estimate;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -213,6 +219,79 @@ public class Controller_Estimate implements Initializable {
             errorFormClass = new ErrorFormClass();
             errorFormClass.OpenErrorForm(ex);
         }
+    }
+
+    @FXML
+    void ExportEstimateExcel(ActionEvent event) {
+        try {
+            Connection connection;
+            connection = ConnectionPool.getDataSource().getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("" +
+                    "SELECT scopeofworkestimates.namework AS NAMEWORK, scopeofworkestimates.quantity AS QUANTITY,\n" +
+                    "measureunits.namemeasureunit AS MEASURE, employers.fio AS EMPFIO,\n" +
+                    "scopeofworkestimates.dateexecution AS DATEEXECUTION ,\n" +
+                    "scopeofworkestimates.price AS price, placements.placementid AS placementid\n" +
+                    "FROM scopeofworkestimates \n" +
+                    "JOIN measureunits ON scopeofworkestimates.measureunits = measureunits.measureunitid\n" +
+                    "JOIN estimates ON scopeofworkestimates.estimates = estimates.estimateid  \n" +
+                    "JOIN employers ON employers.employerid = scopeofworkestimates.employers\n" +
+                    "JOIN placements ON placements.placementid = scopeofworkestimates.placement\n" +
+                    "where estimates.estimateid = ?");
+            preparedStatement.setInt(1, Integer.parseInt(estimateNumberComboBox.getEditor().getText()));
+
+            ResultSet rs = preparedStatement.executeQuery();
+
+            int i = 2;
+
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet spreadsheet = workbook
+                    .createSheet("Смета" );
+            XSSFRow row = spreadsheet.createRow(1);
+            XSSFCell cell;
+            cell = row.createCell(1);
+            cell.setCellValue("Наименование работ");
+            cell = row.createCell(2);
+            cell.setCellValue("Количество");
+            cell = row.createCell(3);
+            cell.setCellValue("Ед.ч.");
+            cell = row.createCell(4);
+            cell.setCellValue("Рабочий");
+            cell = row.createCell(5);
+            cell.setCellValue("Дата Выполнения");
+            cell = row.createCell(6);
+            cell.setCellValue("Помещение");
+            cell = row.createCell(7);
+            cell.setCellValue("Сделано?");
+
+            while (rs.next()) {
+                row = spreadsheet.createRow(i);
+                cell = row.createCell(1);
+                cell.setCellValue(rs.getString("NAMEWORK"));
+                cell = row.createCell(2);
+                cell.setCellValue(rs.getInt("QUANTITY"));
+                cell = row.createCell(3);
+                cell.setCellValue(rs.getString("MEASURE"));
+                cell = row.createCell(4);
+                cell.setCellValue(rs.getString("EMPFIO"));
+                cell = row.createCell(5);
+                cell.setCellValue(rs.getString("DATEEXECUTION"));
+                cell = row.createCell(6);
+                cell.setCellValue(rs.getString("placementid"));
+                i++;
+            }
+            FileOutputStream out = new FileOutputStream(
+                    new File("Смета номер-"+estimateNumberComboBox.getEditor().getText() +".xlsx"));
+            workbook.write(out);
+            out.close();
+
+            preparedStatement.close();
+            connection.close();
+        }
+        catch(Exception ex)
+        {
+
+        }
+
     }
 
     private ObservableList<Tableview_Estimate> olist = FXCollections.observableArrayList();

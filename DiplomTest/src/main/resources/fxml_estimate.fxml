@@ -43,6 +43,11 @@
               <MenuItem fx:id="typeEstimateMenuItem" mnemonicParsing="false" onAction="#OpenTypeEstimate" text="Добавить тип сметы" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="Экспорт сметы">
+              <items>
+                <MenuItem mnemonicParsing="false" onAction="#ExportEstimateExcel" text="Выполнить" />
+              </items>
+            </Menu>
         </menus>
       </MenuBar>
    </children>

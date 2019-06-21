@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="135.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.Controller_Type_Works">
+    <children>
+        <Text layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Типы работ" wrappingWidth="148.53665161132812">
+            <font>
+                <Font size="26.0" />
+            </font>
+        </Text>
+        <Button fx:id="addTypeWorkButton" layoutX="205.0" layoutY="31.0" mnemonicParsing="false" onAction="#AddTypeWork" prefHeight="38.0" prefWidth="119.0" text="Добавить" />
+        <TextField fx:id="nameTypeWork" layoutX="14.0" layoutY="63.0" prefHeight="38.0" prefWidth="167.0" promptText="Наименование" />
+        <Button fx:id="deleteTypeContractButton" layoutX="205.0" layoutY="82.0" mnemonicParsing="false" onAction="#DeleteTypeWork" prefHeight="38.0" prefWidth="119.0" text="Удалить" />
+    </children>
+</AnchorPane>

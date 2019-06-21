@@ -10,17 +10,10 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
 
         Parent root = FXMLLoader.load(getClass().getResource("/fxml_auth.fxml"));
-        primaryStage.setTitle("auth");
+        primaryStage.setTitle("Авторизация");
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
-
-
-
     }
-
-
-
-
 
     public static void main(String[] args) {
         launch(args);

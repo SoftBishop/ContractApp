@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modeltables.Tableview_Employer;
+import org.controlsfx.control.textfield.TextFields;
 
 import java.net.URL;
 import java.sql.Connection;
@@ -189,12 +190,6 @@ public class Controller_Employer implements Initializable {
         }
     }
 
-    @FXML
-    void UpdateTable(ActionEvent event) {
-        FillEmployerTableView();
-    }
-
-
     private ObservableList<Tableview_Employer> employerList = FXCollections.observableArrayList();
     private void FillEmployerTableView() {
 
@@ -276,6 +271,7 @@ public class Controller_Employer implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         FillEmployerTableView();
         GetDataByClick();
+
     }
 }
 

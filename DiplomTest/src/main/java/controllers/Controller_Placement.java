@@ -14,6 +14,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import modeltables.Tableview_Placement;
+import org.controlsfx.control.textfield.TextFields;
+
 
 import java.net.URL;
 import java.sql.Connection;
@@ -246,7 +248,9 @@ public class Controller_Placement implements Initializable {
             errorFormClass = new ErrorFormClass();
             errorFormClass.OpenErrorForm(ex);
         }
-        typeComboBox.setItems(typePlacementList);
+       typeComboBox.setItems(typePlacementList);
+
+
     }
 
     private int placementID;
@@ -282,6 +286,7 @@ public class Controller_Placement implements Initializable {
         FillPlacementTableView();
         FillTypeComboBox();
         GetDataByClick();
+
     }
 
     @Override

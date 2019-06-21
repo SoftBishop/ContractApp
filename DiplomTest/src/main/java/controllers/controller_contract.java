@@ -5,11 +5,9 @@ import errorpack.ErrorFormClass;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +16,6 @@ import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import modeltables.Tableview_Contract;
 
@@ -214,6 +211,23 @@ public class Controller_Contract implements Initializable {
         }
 
     }
+
+    @FXML
+    void OpenEmployerForm(ActionEvent event) {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml_employer.fxml"));
+            Parent root = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+        catch (Exception ex)
+        {
+            errorFormClass = new ErrorFormClass();
+            errorFormClass.OpenErrorForm(ex);
+        }
+    }
+
     @FXML
     void UpdateTableView(ActionEvent event) {
      FillContractTableView();
